@@ -1,21 +1,16 @@
 { config, pkgs, ... }:
 
 {
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
   home.username = "jp";
   home.homeDirectory = "/home/jp";
 
-  xdg.mimeApps = {
-    enable = true;
-    defaultApplications = {
-      "text/html" = "firefox.desktop";
-      "x-scheme-handler/http" = "firefox.desktop";
-      "x-scheme-handler/https" = "firefox.desktop";
-      "x-scheme-handler/about" = "firefox.desktop";
-      "x-scheme-handler/unknown" = "firefox.desktop";
-    };
-  };
+  imports = [
+    ../../modules/home/firefox.nix
+    ../../modules/home/hyprland.nix
+  ];
+
+  modules.firefox.enable = true;
+  modules.hyprland.enable = true;
 
   programs.git = {
     enable = true;
@@ -29,12 +24,12 @@
 
   programs.ssh = {
     enable = true;
-    addKeysToAgent = "yes"; # Automatically load keys
+    addKeysToAgent = "yes";
     
     matchBlocks = {
       "github.com" = {
         user = "git";
-        identityFile = "~/.ssh/nixos-pc"; # Path to the key you generated
+        identityFile = "~/.ssh/nixos-pc"; 
       };
     };
   };
@@ -44,7 +39,7 @@
     enableAutoUpdates = true;
   };
 
-  # --- VS Code Configuration ---
+  # VS Code Configuration
   programs.vscode = {
     enable = true;
     mutableExtensionsDir = false; 
@@ -56,11 +51,10 @@
       # C / C++
       ms-vscode.cpptools
       
-      # Nix (Syntax Highlighting + IDE features)
+      # Nix 
       bbenoist.nix 
-      # OR use 'jnoortheen.nix-ide' if you want more advanced features later
 
-      # TOML (Great for configuring Rust or other tools)
+      # TOML 
       tamasfe.even-better-toml
       
       # Markdown
@@ -68,55 +62,6 @@
     ];
   };
 
-  # --- Firefox Configuration (Moved from configuration.nix) ---
-  programs.firefox = {
-    enable = true;
-    
-    policies = {
-      # 1. Preferences: Restore tabs on startup
-      Preferences = {
-        "browser.startup.page" = 3; 
-        "browser.startup.homepage" = "https://nixos.org";
-        "browser.newtabpage.enabled" = true;
-      };
-
-      # 2. Search Engines: Kagi Default
-      SearchEngines = {
-        Default = "Kagi";
-        PreventInstalls = true;
-        Add = [
-          {
-            Name = "Kagi";
-            URLTemplate = "https://kagi.com/search?q={searchTerms}";
-            Method = "GET";
-            IconURL = "https://kagi.com/favicon.ico";
-            Alias = "@k"; 
-          }
-        ];
-      };
-
-      # 3. Extensions
-      ExtensionSettings = {
-        # Bitwarden
-        "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
-          installation_mode = "force_installed";
-        };
-
-        # uBlock Origin
-        "uBlock0@raymondhill.net" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-          installation_mode = "force_installed";
-        };
-
-        # SponsorBlock
-        "sponsorBlocker@ajay.app" = {
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi";
-          installation_mode = "force_installed";
-        };
-      };
-    };
-  };
 
   # hack for capslock (since gnome overrides it) can probably remove later
   dconf.settings = {
