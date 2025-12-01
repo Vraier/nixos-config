@@ -1,0 +1,1 @@
+Create a new ssh key: `ssh-keygen -t ed25519 -C "jpvdheydt@googlemail.com" -f ~/.ssh/nixos-pc`
