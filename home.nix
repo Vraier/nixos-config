@@ -31,13 +31,12 @@
     enable = true;
     addKeysToAgent = "yes"; # Automatically load keys
     
-    #matchBlocks = {
-    #  "github.com" = {
-    #    hostname = "github.com";
-    #    user = "git";
-    #    identityFile = "~/.ssh/id_ed25519"; # Path to the key you generated
-    #  };
-    #};
+    matchBlocks = {
+      "github.com" = {
+        user = "git";
+        identityFile = "~/.ssh/nixos-pc"; # Path to the key you generated
+      };
+    };
   };
 
   programs.tealdeer = {
