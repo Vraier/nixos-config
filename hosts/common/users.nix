@@ -13,7 +13,6 @@
     users.jp = {
       imports = 
       [
-        ../pc/home.nix
         ../../modules/home/default.nix
       ];
       home.username = "jp";

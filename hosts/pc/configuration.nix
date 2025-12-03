@@ -10,8 +10,6 @@
     ];
   system.stateVersion = "25.05";
 
-  modules.system.hyprland.enable = true;
-
   home-manager.users.jp = {
     home.stateVersion = "25.11";
     programs.ssh.matchBlocks."github.com".identityFile = "~/.ssh/nixos-pc";

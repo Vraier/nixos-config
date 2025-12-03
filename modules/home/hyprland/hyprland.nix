@@ -1,10 +1,6 @@
 { lib, config, pkgs, ... }: 
 {
-  options = {
-    modules.hyprland.enable = lib.mkEnableOption "Enable Hyprland Home Config";
-  };
-
-  config = lib.mkIf config.modules.hyprland.enable {
+  config = {
 
     # 1. Hyprland Config
     wayland.windowManager.hyprland = {

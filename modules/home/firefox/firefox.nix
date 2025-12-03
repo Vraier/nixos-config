@@ -1,11 +1,7 @@
 { lib, config, pkgs, ... }:
 
 {
-  options = {
-    modules.firefox.enable = lib.mkEnableOption "Enable Firefox & Default Browser";
-  };
-
-  config = lib.mkIf config.modules.firefox.enable {
+  config = {
     programs.firefox = {
         enable = true;
         

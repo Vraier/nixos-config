@@ -1,8 +1,6 @@
 { ... }:
 
 {
-modules.firefox.enable = true;
-
   imports = [
     ./firefox/firefox.nix
     ./hyprland/hyprland.nix
@@ -15,11 +13,10 @@ modules.firefox.enable = true;
     enableAutoUpdates = true;
   };
 
-    programs.home-manager.enable = true;
+  programs.home-manager.enable = true;
 
-     programs.ssh = {
+  programs.ssh = {
     enable = true;
-    addKeysToAgent = "yes";};
-
-
+    addKeysToAgent = "yes";
+  };
 }
