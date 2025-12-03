@@ -47,16 +47,4 @@
   
   services.displayManager.autoLogin.enable = true;
   services.displayManager.autoLogin.user = "jp";
-
-  environment.systemPackages = with pkgs; [
-    vim
-    wget
-    yazi
-    helix
-    bat 
-    btop
-    tree
-    fzf
-    nix-search-tv
-  ];
 }

@@ -3,10 +3,14 @@
 {
   imports = [
     ./hyprland/hyprland.nix
+    ./stylix/stylix.nix
+    ./basic/basic.nix
   ];
 
-  stylix.enable = true;
-  stylix.enableReleaseChecks = false;
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
-
+  environment.systemPackages = with pkgs; [
+    vim
+    wget
+    tree
+    nix-search-tv
+  ];
 }
