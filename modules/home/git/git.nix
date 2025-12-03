@@ -2,10 +2,16 @@
 {
   programs.git = {
     enable = true;
-    userName  = "Vraier";
-    userEmail = "jpvdheydt@googlemail.com";
-    extraConfig = {
-      init.defaultBranch = "main";
+    settings = {
+      user = {
+        name = "Vraier";
+        email = "jpvdheydt@googlemail.com";
+      };
+      
+      # Previously 'extraConfig'
+      init = {
+        defaultBranch = "main";
+      };
     };
   };
 }

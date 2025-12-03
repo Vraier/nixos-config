@@ -3,7 +3,7 @@
   programs.vscode = {
     enable = true;
     mutableExtensionsDir = false;
-    extensions = with pkgs.vscode-extensions; [
+    profiles.default.extensions = with pkgs.vscode-extensions; [
       ms-python.python
       ms-python.vscode-pylance
       ms-vscode.cpptools

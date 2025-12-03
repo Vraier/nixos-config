@@ -18,7 +18,5 @@
       home.username = "jp";
       home.homeDirectory = "/home/jp";
     };
-    
   };
-  
 }

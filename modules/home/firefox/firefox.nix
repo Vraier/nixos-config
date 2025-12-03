@@ -1,65 +1,66 @@
-{ lib, config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
-  config = {
-    programs.firefox = {
-        enable = true;
-        
-        policies = {
-        # 1. Preferences: Restore tabs on startup
-        Preferences = {
-            "browser.startup.page" = 3; 
-            "browser.startup.homepage" = "https://nixos.org";
-            "browser.newtabpage.enabled" = true;
-        };
+  programs.firefox = {
+    enable = true;
 
-        # 2. Search Engines: Kagi Default
-        SearchEngines = {
-            Default = "Kagi";
-            PreventInstalls = true;
-            Add = [
-            {
-                Name = "Kagi";
-                URLTemplate = "https://kagi.com/search?q={searchTerms}";
-                Method = "GET";
-                IconURL = "https://kagi.com/favicon.ico";
-                Alias = "@k"; 
-            }
-            ];
-        };
+    profiles.default = {
+      id = 0;
+      name = "default";
+      isDefault = true;
 
-        # 3. Extensions
-        ExtensionSettings = {
-            # Bitwarden
-            "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
-            install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
-            installation_mode = "force_installed";
-            };
+      extensions.packages = with inputs.firefox-addons.packages."x86_64-linux"; [
+        ublock-origin
+        bitwarden
+        sponsorblock
+        youtube-shorts-block 
+      ];
 
-            # uBlock Origin
-            "uBlock0@raymondhill.net" = {
-            install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-            installation_mode = "force_installed";
-            };
+      search = {
+        force = true;
+        default = "kagi";
+        privateDefault = "google";
+        order = [ "kagi" "google" ];
 
-            # SponsorBlock
-            "sponsorBlocker@ajay.app" = {
-            install_url = "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi";
-            installation_mode = "force_installed";
-            };
+        engines = {
+          "kagi" = {
+            urls = [{ template = "https://kagi.com/search?q={searchTerms}"; }];
+            icon = "https://kagi.com/favicon.ico";
+            updateInterval = 24 * 60 * 60 * 1000; # every day
+            definedAliases = [ "@k" ];
+          };
         };
-        };
+      };
+
+      settings = {
+        "browser.startup.page" = 3; # Resume previous session
+        "browser.startup.homepage" = "https://kagi.com";
+        "browser.newtabpage.enabled" = true;
+
+        "browser.translations.enable" = false;
+        "browser.translations.panelShown" = false;
+        "browser.translations.automaticallyPopup" = false;
+
+        "signon.rememberSignons" = false;
+        "signon.autofillForms" = false;
+        "extensions.formautofill.addresses.enabled" = false;
+        "extensions.formautofill.creditCards.enabled" = false;
+
+        "privacy.trackingprotection.enabled" = true;
+        "dom.security.https_only_mode" = true;
+      };
     };
+  };
 
-    xdg.mimeApps = {
-        enable = true;
-        defaultApplications = {
-        "text/html" = "firefox.desktop";
-        "x-scheme-handler/http" = "firefox.desktop";
-        "x-scheme-handler/https" = "firefox.desktop";
-        "x-scheme-handler/about" = "firefox.desktop";
-        "x-scheme-handler/unknown" = "firefox.desktop";
-        };
+  # XDG Mime apps remain the same
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "text/html" = "firefox.desktop";
+      "x-scheme-handler/http" = "firefox.desktop";
+      "x-scheme-handler/https" = "firefox.desktop";
+      "x-scheme-handler/about" = "firefox.desktop";
+      "x-scheme-handler/unknown" = "firefox.desktop";
     };
   };
 }
