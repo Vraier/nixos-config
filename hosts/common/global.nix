@@ -56,5 +56,7 @@
     bat 
     btop
     tree
+    fzf
+    nix-search-tv
   ];
 }

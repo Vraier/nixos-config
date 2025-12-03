@@ -29,8 +29,6 @@
             gaps_in = 5;
             gaps_out = 10;
             border_size = 2;
-            "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-            "col.inactive_border" = "rgba(595959aa)";
             layout = "dwindle";
         };
 
@@ -91,7 +89,6 @@
         enable_audio_bell = false;
         mouse_hide_wait = "-1.0";
         window_padding_width = 10;
-        background_opacity = "0.8";
         background_blur = 5;
         };
     };
