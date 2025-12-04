@@ -1,6 +1,6 @@
 { inputs, outputs, pkgs, ... }: {
   imports = [
-    ../../modules/system/default.nix # Import the "bundle" of modules
+    ../../modules/system/default.nix
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

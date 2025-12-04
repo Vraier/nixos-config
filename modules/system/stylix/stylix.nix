@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {  
   stylix.enable = true;
@@ -13,9 +13,8 @@
 
   stylix.fonts = {
     monospace = {
-      # CHANGED: Use the direct package. No ".override" needed anymore.
       package = pkgs.nerd-fonts.jetbrains-mono;
-      name = "JetBrainsMono Nerd Font Mono";
+      name = "JetBrainsMono Nerd Font";
     };
     sansSerif = {
       package = pkgs.dejavu_fonts;
@@ -25,13 +24,17 @@
       package = pkgs.dejavu_fonts;
       name = "DejaVu Serif";
     };
+    emoji = {
+      package = pkgs.nerd-fonts.symbols-only;
+      name = "Symbols Nerd Font";
+    };
   };
 
   stylix.fonts.sizes = {
     applications = 12;
-    terminal = 15;
-    desktop = 10;
-    popups = 10;
+    terminal = 12;
+    desktop = 12;
+    popups = 12;
   };
 
   stylix.opacity = {
@@ -41,5 +44,5 @@
     popups = 1.0;
   };
   
-  stylix.polarity = "dark"; # "light" or "either"
+  stylix.polarity = "dark"; # "dark" "light" or "either"
 }

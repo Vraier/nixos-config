@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -12,4 +12,9 @@
 
   programs.home-manager.enable = true;
   stylix.enableReleaseChecks = false;
+
+  home.packages = with pkgs; [
+    adwaita-icon-theme
+    hicolor-icon-theme 
+  ];
 }

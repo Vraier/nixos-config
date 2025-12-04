@@ -72,6 +72,28 @@
     programs.waybar = {
         enable = true;
         systemd.enable = false;
+
+        settings = {
+          mainBar = {
+              layer = "top";
+              position = "top";
+              #height = 34;
+
+              modules-left = [ 
+                "hyprland/workspaces" 
+                "hyprland/window" 
+              ];
+              modules-center = [ 
+                "clock"
+              ];
+              modules-right = [ 
+                "pulseaudio" 
+                "network" 
+                "battery" 
+                "tray"
+              ];
+          };
+        };
     };
     
     programs.rofi = {

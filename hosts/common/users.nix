@@ -2,7 +2,7 @@
   users.users.jp = {
     isNormalUser = true;
     description = "Jean-Pierre";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "input" ];
   };
 
   home-manager = {
