@@ -2,6 +2,8 @@
 
 {
   config = {
+    services.displayManager.sessionPackages = [ pkgs.hyprland ];
+
     programs.hyprland = {
       enable = true;
       xwayland.enable = true;
@@ -9,7 +11,7 @@
 
     boot.initrd.kernelModules = [ "amdgpu" ];
     services.xserver.videoDrivers = [ "amdgpu" ];
-    
+
     hardware.graphics = {
       enable = true;
       enable32Bit = true;
@@ -20,10 +22,5 @@
       enable = true;
       extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
     };
-
-    environment.systemPackages = with pkgs; [
-      libnotify            # 'notify-send' command
-      wl-clipboard         # Clipboard command
-    ];
   };
 }

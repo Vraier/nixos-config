@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./hyprland/hyprland.nix
+    ./desktop/hyprland.nix
     ./stylix/stylix.nix
     ./basic/basic.nix
   ];
@@ -12,5 +12,6 @@
     wget
     tree
     nix-search-tv
+    nixpkgs-fmt
   ];
 }

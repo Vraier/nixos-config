@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 
-{  
+{
   stylix.enable = true;
   stylix.enableReleaseChecks = false;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
@@ -43,6 +43,6 @@
     desktop = 1.0;
     popups = 1.0;
   };
-  
+
   stylix.polarity = "dark"; # "dark" "light" or "either"
 }

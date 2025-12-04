@@ -13,7 +13,7 @@
         ublock-origin
         bitwarden
         sponsorblock
-        youtube-shorts-block 
+        youtube-shorts-block
       ];
 
       search = {

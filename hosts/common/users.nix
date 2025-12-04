@@ -11,10 +11,10 @@
     useUserPackages = true;
     backupFileExtension = "backup";
     users.jp = {
-      imports = 
-      [
-        ../../modules/home/default.nix
-      ];
+      imports =
+        [
+          ../../modules/home/default.nix
+        ];
       home.username = "jp";
       home.homeDirectory = "/home/jp";
     };

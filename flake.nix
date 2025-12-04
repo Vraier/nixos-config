@@ -30,7 +30,7 @@
     nixosConfigurations = {
       jp-pc = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = {inherit inputs;};
+        specialArgs = { inherit inputs; };
         modules = [
           inputs.home-manager.nixosModules.default
           stylix.nixosModules.stylix
@@ -39,7 +39,7 @@
       };
       jp-laptop = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = {inherit inputs;};
+        specialArgs = { inherit inputs; };
         modules = [
           inputs.home-manager.nixosModules.default
           stylix.nixosModules.stylix

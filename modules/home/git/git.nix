@@ -7,7 +7,7 @@
         name = "Vraier";
         email = "jpvdheydt@googlemail.com";
       };
-      
+
       # Previously 'extraConfig'
       init = {
         defaultBranch = "main";

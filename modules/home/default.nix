@@ -3,7 +3,9 @@
 {
   imports = [
     ./firefox/firefox.nix
-    ./hyprland/hyprland.nix
+    ./desktop/hyprland.nix
+    ./desktop/waybar.nix
+    ./desktop/wayland.nix
     ./cli/cli.nix
     ./ssh/ssh.nix
     ./git/git.nix
@@ -15,6 +17,6 @@
 
   home.packages = with pkgs; [
     adwaita-icon-theme
-    hicolor-icon-theme 
+    hicolor-icon-theme
   ];
 }
