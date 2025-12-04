@@ -12,10 +12,7 @@
         "$menu" = "rofi -show drun -show-icons";
 
         exec-once = [
-            "waybar"
-            "dunst"
-            "nm-applet"
-            "swww init"
+          "waybar"
         ];
 
         input = {
@@ -35,9 +32,9 @@
         decoration = {
             rounding = 10;
             blur = {
-            enabled = true;
-            size = 3;
-            passes = 1;
+              enabled = true;
+              size = 3;
+              passes = 1;
             };
         };
 
@@ -48,6 +45,7 @@
             "$mod, D, exec, $menu"
             "$mod, P, pseudo," 
             "$mod, J, togglesplit,"
+            "$mod, L, exec, hyprlock"
             "$mod, left, movefocus, l"
             "$mod, right, movefocus, r"
             "$mod, up, movefocus, u"
@@ -71,14 +69,13 @@
         };
     };
 
-    # 2. Related Tools (Waybar, Rofi, Kitty)
     programs.waybar = {
         enable = true;
+        systemd.enable = false;
     };
     
     programs.rofi = {
         enable = true;
-        package = pkgs.rofi; # FIXED: Needs to be the wayland version
     };
     
     programs.kitty = {
@@ -92,5 +89,19 @@
         background_blur = 5;
         };
     };
+
+    programs.hyprlock.enable = true;
+    services.hypridle.enable = true;
+
+    services.dunst = {
+      enable = true;
+      settings = {
+        global = {
+          origin = "top-right";
+        };
+      };
+    };
+
+    services.network-manager-applet.enable = true;
   };
 }

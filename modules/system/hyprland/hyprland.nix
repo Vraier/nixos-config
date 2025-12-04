@@ -22,12 +22,7 @@
     };
 
     environment.systemPackages = with pkgs; [
-      dunst                # Notifications
-      libnotify            # The 'notify-send' command
-      swww                 # Wallpaper tool
-      rofi                 # App launcher
-      networkmanagerapplet # GUI for wifi
-      kitty                # Terminal
+      libnotify            # 'notify-send' command
       wl-clipboard         # Clipboard command
     ];
   };
