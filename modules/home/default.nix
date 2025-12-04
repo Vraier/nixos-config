@@ -6,6 +6,7 @@
     ./desktop/hyprland.nix
     ./desktop/waybar.nix
     ./desktop/wayland.nix
+    ./discord/discord.nix
     ./cli/cli.nix
     ./ssh/ssh.nix
     ./git/git.nix

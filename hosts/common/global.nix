@@ -19,6 +19,14 @@
   services.printing.enable = true;
   hardware.bluetooth.enable = true;
 
+  hardware.opengl = {
+    enable = true;
+    driSupport32Bit = true;
+  };
+  boot.initrd.kernelModules = [ "amdgpu" ];
+  services.xserver.videoDrivers = [ "amdgpu" ];
+
+
   # Audio
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -37,7 +45,6 @@
     options = "ctrl:nocaps";
   };
   console.useXkbConfig = true;
-
 
   time.timeZone = "Europe/Berlin";
   i18n.defaultLocale = "en_US.UTF-8";

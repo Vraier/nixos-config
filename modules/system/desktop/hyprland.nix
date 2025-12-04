@@ -9,8 +9,6 @@
       xwayland.enable = true;
     };
 
-    boot.initrd.kernelModules = [ "amdgpu" ];
-    services.xserver.videoDrivers = [ "amdgpu" ];
 
     hardware.graphics = {
       enable = true;
@@ -20,7 +18,12 @@
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
     xdg.portal = {
       enable = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+      extraPortals = [
+        pkgs.xdg-desktop-portal-gtk
+        pkgs.xdg-desktop-portal-hyprland
+      ];
+      config.common.default = "*";
+
     };
   };
 }

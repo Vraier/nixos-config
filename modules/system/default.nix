@@ -5,6 +5,7 @@
     ./desktop/hyprland.nix
     ./stylix/stylix.nix
     ./basic/basic.nix
+    ./steam/steam.nix
   ];
 
   environment.systemPackages = with pkgs; [
@@ -13,5 +14,7 @@
     tree
     nix-search-tv
     nixpkgs-fmt
+    parted
+    btrfs-progs
   ];
 }

@@ -55,8 +55,6 @@
             format = " {:%R   %d/%m}";
             tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
           };
-
-
         };
       };
     };

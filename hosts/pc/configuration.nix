@@ -20,4 +20,19 @@
 
   boot.initrd.luks.devices."luks-361c8378-276e-4a51-92a0-860a425849f6".device = "/dev/disk/by-uuid/361c8378-276e-4a51-92a0-860a425849f6";
   networking.hostName = "jp-pc";
+
+  fileSystems = {
+    "/mnt/data1" = {
+      device = "/dev/disk/by-label/data1";
+      fsType = "btrfs";
+      options = [ "defaults" "noatime" "compress=zstd" ];
+      neededForBoot = false;
+    };
+    "/mnt/data2" = {
+      device = "/dev/disk/by-label/data2";
+      fsType = "btrfs";
+      options = [ "defaults" "noatime" "compress=zstd" ];
+      neededForBoot = false;
+    };
+  };
 }
