@@ -10,9 +10,16 @@
       enable = true;
       user = "jp";
     };
+
+    environment.systemPackages = [
+      pkgs.catppuccin-sddm
+      pkgs.catppuccin-sddm-corners
+    ];
     services.displayManager.sddm = {
       enable = true;
       wayland.enable = true;
+      # list themes by: ls /run/current-system/sw/share/sddm/themes
+      theme = "catppuccin-mocha-mauve"; # Set the theme here
     };
 
     programs.hyprland = {
