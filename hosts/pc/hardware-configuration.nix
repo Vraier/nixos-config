@@ -9,17 +9,33 @@
       (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
+
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-uuid/1f398a63-ca94-4db6-8456-37c25b2f510f";
+      fsType = "ext4";
+    };
+    "/mnt/data1" = {
+      device = "/dev/disk/by-label/data1";
+      fsType = "btrfs";
+      options = [ "defaults" "noatime" "compress=zstd" ];
+      neededForBoot = false;
+    };
+    "/mnt/data2" = {
+      device = "/dev/disk/by-label/data2";
+      fsType = "btrfs";
+      options = [ "defaults" "noatime" "compress=zstd" ];
+      neededForBoot = false;
+    };
+  };
+
+
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    {
-      device = "/dev/disk/by-uuid/1f398a63-ca94-4db6-8456-37c25b2f510f";
-      fsType = "ext4";
-    };
-
+  boot.initrd.luks.devices."luks-361c8378-276e-4a51-92a0-860a425849f6".device = "/dev/disk/by-uuid/361c8378-276e-4a51-92a0-860a425849f6";
   boot.initrd.luks.devices."luks-1b80c475-24c3-4d16-95a7-63bde902afca".device = "/dev/disk/by-uuid/1b80c475-24c3-4d16-95a7-63bde902afca";
 
   fileSystems."/boot" =

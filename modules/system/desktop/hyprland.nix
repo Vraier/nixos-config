@@ -35,7 +35,6 @@
         pkgs.xdg-desktop-portal-hyprland
       ];
       config.common.default = "*";
-
     };
   };
 }

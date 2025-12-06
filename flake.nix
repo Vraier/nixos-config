@@ -29,21 +29,19 @@
   outputs = { self, nixpkgs, home-manager, stylix, ... }@inputs: {
     nixosConfigurations = {
       jp-pc = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
+          ./hosts/pc/configuration.nix
           inputs.home-manager.nixosModules.default
           stylix.nixosModules.stylix
-          ./hosts/pc/configuration.nix
         ];
       };
       jp-laptop = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
+          ./hosts/laptop/configuration.nix
           inputs.home-manager.nixosModules.default
           stylix.nixosModules.stylix
-          ./hosts/laptop/configuration.nix
         ];
       };
     };
