@@ -32,7 +32,7 @@
 
           "hyprland/window" = {
             format = "{}";
-            seperate-outputs = true;
+            separate-outputs = true;
           };
           "hyprland/workspaces" = {
             disable-scroll = true;
@@ -47,8 +47,40 @@
             exec = "wttrbar --location Karlsruhe";
             return-type = "json";
           };
+          "network" = {
+            format-wifi = "  {essid}";
+            format-ethernet = "  Connected";
+            format-disconnected = "  Disconnected";
+            tooltip-format = "{ifname} via {gwaddr}";
+            on-click = "nm-connection-editor"; # or your preferred wifi menu
+          };
+          "battery" = {
+            states = {
+              # "good" = 95;
+              "warning" = 30;
+              "critical" = 15;
+            };
+            format = "{icon}  {capacity}%";
+            format-charging = "  {capacity}%";
+            format-plugged = "  {capacity}%";
+            format-icons = [ "" "" "" "" "" ];
+          };
+          "pulseaudio" = {
+            format = "{icon} {volume}%";
+            format-muted = " Muted";
+            format-icons = {
+              "headphone" = "";
+              "hands-free" = "";
+              "headset" = "";
+              "phone" = "";
+              "portable" = "";
+              "default" = [ "" "" "" ];
+            };
+            # This is the magic: Clicking the icon opens the mixer
+            on-click = "pavucontrol";
+          };
           tray = {
-            icon-size = 13;
+            icon-size = 18;
             spacing = 10;
           };
           clock = {

@@ -6,8 +6,8 @@
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
 
   stylix.image = pkgs.fetchurl {
-    url = "https://getwallpapers.com/wallpaper/full/1/4/3/523784.jpg";
-    hash = "sha256-S/6kgloXiIYI0NblT6YVXfqELApbdHGsuYe6S4JoQwQ=";
+    url = "https://wallpaperbat.com/img/906223-kh3-wallpaper-4k-hearts-post.jpg";
+    hash = "sha256-HeenWJf2zN8OiaO5ibJONKh4loYJdJVyADIR7woDshY=";
   };
 
   stylix.cursor = {

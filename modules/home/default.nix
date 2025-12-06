@@ -3,9 +3,7 @@
 {
   imports = [
     ./firefox/firefox.nix
-    ./desktop/hyprland.nix
-    ./desktop/waybar.nix
-    ./desktop/wayland.nix
+    ./desktop/default.nix
     ./discord/discord.nix
     ./cli/cli.nix
     ./ssh/ssh.nix
@@ -17,7 +15,6 @@
   stylix.enableReleaseChecks = false;
 
   home.packages = with pkgs; [
-    adwaita-icon-theme
-    hicolor-icon-theme
+    pavucontrol
   ];
 }

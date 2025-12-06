@@ -9,7 +9,6 @@
       ms-vscode.cpptools
       bbenoist.nix
       tamasfe.even-better-toml
-      yzhang.markdown-all-in-one
     ];
   };
 }
