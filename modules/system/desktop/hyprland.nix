@@ -2,25 +2,23 @@
 
 {
   config = {
-    services.displayManager.enable = true;
-    services.displayManager.autoLogin.enable = true;
-    services.displayManager.autoLogin.user = "jp";
+    boot.initrd.kernelModules = [ "amdgpu" ];
+    services.xserver.enable = true;
+    services.xserver.videoDrivers = [ "amdgpu" ];
+
+    services.displayManager.autoLogin = {
+      enable = true;
+      user = "jp";
+    };
     services.displayManager.sddm = {
       enable = true;
       wayland.enable = true;
     };
 
-    services.xserver.enable = true;
-    boot.initrd.kernelModules = [ "amdgpu" ];
-    services.xserver.videoDrivers = [ "amdgpu" ];
-
-    services.displayManager.sessionPackages = [ pkgs.hyprland ];
-
     programs.hyprland = {
       enable = true;
       xwayland.enable = true;
     };
-
 
     hardware.graphics = {
       enable = true;
@@ -32,9 +30,15 @@
       enable = true;
       extraPortals = [
         pkgs.xdg-desktop-portal-gtk
-        pkgs.xdg-desktop-portal-hyprland
       ];
-      config.common.default = "*";
+      config = {
+        common = {
+          # Use Hyprland portal for screenshots/screencasting
+          # Use GTK portal for file pickers (Open/Save dialogs)
+          default = [ "hyprland" ];
+          "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
+        };
+      };
     };
   };
 }
