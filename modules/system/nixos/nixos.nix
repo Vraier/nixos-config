@@ -2,7 +2,6 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
 
-
   # Services
   networking.networkmanager.enable = true;
   services.printing.enable = true;
