@@ -1,31 +1,12 @@
 { inputs, outputs, pkgs, ... }: {
-  imports = [
-    ../../modules/system/default.nix
-  ];
-
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
 
-  services.displayManager.enable = true;
-  services.displayManager.autoLogin.enable = true;
-  services.displayManager.autoLogin.user = "jp";
-  services.displayManager.sddm = {
-    enable = true;
-    wayland.enable = true;
-  };
 
-  services.xserver.enable = true;
+  # Services
   networking.networkmanager.enable = true;
   services.printing.enable = true;
   hardware.bluetooth.enable = true;
-
-  hardware.opengl = {
-    enable = true;
-    driSupport32Bit = true;
-  };
-  boot.initrd.kernelModules = [ "amdgpu" ];
-  services.xserver.videoDrivers = [ "amdgpu" ];
-
 
   # Audio
   services.pulseaudio.enable = false;
@@ -59,5 +40,4 @@
     LC_TELEPHONE = "de_DE.UTF-8";
     LC_TIME = "de_DE.UTF-8";
   };
-
 }

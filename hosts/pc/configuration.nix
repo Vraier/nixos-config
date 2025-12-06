@@ -4,8 +4,7 @@
   imports =
     [
       ./hardware-configuration.nix
-      ../common/global.nix
-      ../common/users.nix
+      ../../modules/system/default.nix
     ];
   system.stateVersion = "25.05";
 
@@ -14,12 +13,33 @@
     programs.ssh.matchBlocks."github.com".identityFile = "~/.ssh/nixos-pc";
   };
 
+  home-manager = {
+    extraSpecialArgs = { inherit inputs; };
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    backupFileExtension = "backup";
+    users.jp = {
+      imports =
+        [
+          ../../modules/home/default.nix
+        ];
+      home.username = "jp";
+      home.homeDirectory = "/home/jp";
+    };
+  };
+
+  # User Definition
+  users.users.jp = {
+    isNormalUser = true;
+    description = "Jean-Pierre";
+    extraGroups = [ "networkmanager" "wheel" "input" ];
+  };
+  networking.hostName = "jp-pc";
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
   boot.initrd.luks.devices."luks-361c8378-276e-4a51-92a0-860a425849f6".device = "/dev/disk/by-uuid/361c8378-276e-4a51-92a0-860a425849f6";
-  networking.hostName = "jp-pc";
 
   fileSystems = {
     "/mnt/data1" = {

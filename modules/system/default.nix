@@ -6,6 +6,7 @@
     ./stylix/stylix.nix
     ./basic/basic.nix
     ./steam/steam.nix
+    ./nixos/nixos.nix
   ];
 
   environment.systemPackages = with pkgs; [

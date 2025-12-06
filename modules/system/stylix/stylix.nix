@@ -3,7 +3,7 @@
 {
   stylix.enable = true;
   stylix.enableReleaseChecks = false;
-  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-light-hard.yaml";
 
   stylix.cursor = {
     package = pkgs.bibata-cursors;

@@ -2,6 +2,18 @@
 
 {
   config = {
+    services.displayManager.enable = true;
+    services.displayManager.autoLogin.enable = true;
+    services.displayManager.autoLogin.user = "jp";
+    services.displayManager.sddm = {
+      enable = true;
+      wayland.enable = true;
+    };
+
+    services.xserver.enable = true;
+    boot.initrd.kernelModules = [ "amdgpu" ];
+    services.xserver.videoDrivers = [ "amdgpu" ];
+
     services.displayManager.sessionPackages = [ pkgs.hyprland ];
 
     programs.hyprland = {
