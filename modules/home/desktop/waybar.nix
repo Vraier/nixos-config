@@ -1,9 +1,15 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, pkgs, inputs, ... }:
 
+
+# TODO: Gamemode, play around with an image, 
+# keyboard state (maybe too much), sound controls (play/pause, mpd?), 
+# powerprofiles, privacy
+
+let
+  c = config.lib.stylix.colors;
+  iconColor = c.base0D;
+in
 {
-  # TODO: Gamemode, hyprland (workspace), play around with an image, 
-  # keyboard state (maybe too much), sound controls (play/pause, mpd?), 
-  # powerprofiles, privace
   config = {
     programs.waybar = {
       enable = true;
@@ -27,12 +33,13 @@
           gtk-layer-shell = true;
 
           modules-left = [
+            "custom/nixos-logo"
             "group/hardware"
             "group/connectivity"
             "group/audio"
             "group/power"
             #"tray"
-            "hyprland/window"
+            #"hyprland/window"
           ];
           modules-center = [
             "hyprland/workspaces"
@@ -86,12 +93,19 @@
               "custom/lock"
               "custom/reboot"
               "custom/shutdown"
+              "custom/logout"
             ];
             drawer = {
               "transition-duration" = 400;
               "transition-left-to-right" = false;
               "children-class" = "not-visible";
             };
+          };
+
+          "custom/nixos-logo" = {
+            format = "<span color=\"#${iconColor}\"> </span>"; 
+            tooltip = false;
+            on-click = "kitty"; 
           };
 
           "idle_inhibitor" = {
@@ -104,22 +118,25 @@
             tooltip-format-deactivated = "Idle Inhibitor: Inactive";
           };
 
-          # Custom Power Button Scripts (Requires wlogout, loginctl)
           "custom/lock" = {
-            format = "";
-            on-click = "loginctl lock-session";
+            format = "  ";
+            on-click = "hyprlock";
+            tooltip-format = "Lock Screen";
           };
           "custom/reboot" = {
-            format = "";
+            format = "  ";
             on-click = "systemctl reboot";
+            tooltip-format = "Reboot System";
           };
           "custom/shutdown" = {
-            format = "";
+            format = "  ";
             on-click = "systemctl poweroff";
+            tooltip-format = "Shutdown System";
           };
           "custom/logout" = {
-            format = "";
+            format = "  ";
             on-click = "wlogout";
+            tooltip-format = "Logout Session";
           };
 
           "battery" = {
@@ -146,7 +163,7 @@
 
           "cpu" = {
             interval = 5;
-            format = " {usage}%";
+            format = "<span color=\"#${iconColor}\"></span> {usage}%";
             tooltip = true;
             states = {
               warning = 70;
@@ -155,7 +172,7 @@
           };
           "memory" = {
             interval = 10;
-            format = " {}%";
+            format = "<span color=\"#${iconColor}\"></span> {}%";
             tooltip = true;
             tooltip-format = "Memory: {used:0.1f}G/{total:0.1f}G ({percentage}%)";
             states = {
@@ -165,7 +182,7 @@
           };
           "disk" = {
             interval = 30;
-            format = "󰆼 {percentage_used}%";
+            format = "<span color=\"#${iconColor}\">󰆼</span> {percentage_used}%";
             path = "/";
             tooltip = true;
             "tooltip-format" = "Disk: {used} used out of {total} on {path}";
@@ -181,9 +198,22 @@
           };
           "hyprland/workspaces" = {
             disable-scroll = true;
-            all-outputs = true;
+            all-outputs = false;
             on-click = "activate";
-            format = " {name} ";
+            format = " {icon}";
+            "format-icons" = {
+              "1" = "一";
+              "2" = "二";
+              "3" = "三";
+              "4" = "四";
+              "5" = "五";
+              "6" = "六";
+              "7" = "七";
+              "8" = "八";
+              "9" = "九";
+              "10" = "十";
+              "default" = "·";
+            };
           };
           "custom/weather" = {
             format = "{}°C";
@@ -193,7 +223,7 @@
             return-type = "json";
           };
           "network" = {
-            format-wifi = "  {essid}";
+            format-wifi = " {essid}";
             format-ethernet = " ";
             format-disconnected = " ";
             tooltip-format = "{ifname} via {gwaddr}";
@@ -204,8 +234,8 @@
           };
 
           "pulseaudio" = {
-            format = "{icon} {volume}%";
-            format-bluetooth = "{icon}  {volume}%";
+            format = "<span color=\"#${iconColor}\">{icon}</span> {volume}%";
+            #format-bluetooth = "<span color=\"#${iconColor}\">{icon} </span> {volume}%";
             format-muted = " {volume}%";
             format-icons = {
               headphone = "";
@@ -224,7 +254,7 @@
             spacing = 10;
           };
           "clock" = {
-            format = " {:%R   %A, %d. %B, %Y}";
+            format = "<span color=\"#${iconColor}\"></span> {:%R  <span color=\"#${iconColor}\"></span> %A, %d. %B, %Y}";
             tooltip-format = "<tt><small>{calendar}</small></tt>";
             calendar = {
               mode = "year";
