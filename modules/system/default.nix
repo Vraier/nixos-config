@@ -19,5 +19,6 @@
     btrfs-progs
     adwaita-icon-theme
     hicolor-icon-theme
+
   ];
 }

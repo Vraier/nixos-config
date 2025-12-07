@@ -1,5 +1,10 @@
-{ pkgs, ... }:
-
+{ pkgs, inputs, ... }:
+let
+  pkgsStable = import inputs.nixpkgs-stable {
+    system = pkgs.system;
+    config.allowUnfree = true;
+  };
+in
 {
   imports = [
     ./firefox/firefox.nix
@@ -14,7 +19,10 @@
   programs.home-manager.enable = true;
   stylix.enableReleaseChecks = false;
 
-  home.packages = with pkgs; [
-    pavucontrol
+  home.packages = [
+    pkgs.pavucontrol
+    #pkgs.overskride # bluetooth manager, maybe will work some day :(
+    pkgs.blueman
+    pkgs.networkmanagerapplet
   ];
 }

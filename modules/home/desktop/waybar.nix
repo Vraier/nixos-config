@@ -1,34 +1,179 @@
 { lib, config, pkgs, ... }:
 
 {
+  # TODO: Gamemode, hyprland (workspace), play around with an image, 
+  # keyboard state (maybe too much), sound controls (play/pause, mpd?), 
+  # powerprofiles, privace
   config = {
     programs.waybar = {
       enable = true;
       systemd.enable = false;
+
+      style = import ./waybar-style.nix {
+        # Pass the Stylix colors (hex codes without #)
+        colors = config.lib.stylix.colors;
+        # Pass the Stylix fonts
+        fonts = config.stylix.fonts;
+      };
 
       settings = {
         mainBar = {
           layer = "top";
           position = "top";
           mod = "dock";
+          reload_style_on_change = true;
           exclusive = true;
           passthrough = false;
           gtk-layer-shell = true;
 
           modules-left = [
-            "hyprland/workspaces"
+            "group/hardware"
+            "group/connectivity"
+            "group/audio"
+            "group/power"
+            #"tray"
             "hyprland/window"
           ];
           modules-center = [
-            "clock"
+            "hyprland/workspaces"
           ];
           modules-right = [
-            "custom/weather"
-            "pulseaudio"
-            "network"
-            "battery"
-            "tray"
+            "group/context"
+            "group/power-buttons"
           ];
+
+          "group/context" = {
+            orientation = "horizontal";
+            modules = [
+              "custom/weather"
+              "clock"
+            ];
+          };
+          "group/hardware" = {
+            orientation = "horizontal";
+            modules = [
+              "cpu"
+              "memory"
+              "disk"
+            ];
+          };
+          "group/connectivity" = {
+            orientation = "horizontal";
+            modules = [
+              "network"
+              "bluetooth"
+            ];
+          };
+          "group/audio" = {
+            orientation = "horizontal";
+            modules = [
+              "pulseaudio"
+              # Note: Privacy indicator requires a separate app/module or be integrated via scripting
+            ];
+          };
+
+          "group/power" = {
+            orientation = "horizontal";
+            modules = [
+              "battery"
+              "idle_inhibitor"
+            ];
+          };
+
+          "group/power-buttons" = {
+            orientation = "horizontal";
+            modules = [
+              "custom/lock"
+              "custom/reboot"
+              "custom/shutdown"
+            ];
+            drawer = {
+              "transition-duration" = 400;
+              "transition-left-to-right" = false;
+              "children-class" = "not-visible";
+            };
+          };
+
+          "idle_inhibitor" = {
+            format = "{icon} ";
+            format-icons = {
+              activated = "";
+              deactivated = "";
+            };
+            tooltip-format-activated = "Idle Inhibitor: Active";
+            tooltip-format-deactivated = "Idle Inhibitor: Inactive";
+          };
+
+          # Custom Power Button Scripts (Requires wlogout, loginctl)
+          "custom/lock" = {
+            format = "";
+            on-click = "loginctl lock-session";
+          };
+          "custom/reboot" = {
+            format = "";
+            on-click = "systemctl reboot";
+          };
+          "custom/shutdown" = {
+            format = "";
+            on-click = "systemctl poweroff";
+          };
+          "custom/logout" = {
+            format = "";
+            on-click = "wlogout";
+          };
+
+          "battery" = {
+            states = {
+              "warning" = 30;
+              "critical" = 15;
+            };
+            format = "{icon} {capacity}%";
+            format-charging = "  {capacity}%";
+            format-plugged = "  {capacity}%";
+            format-icons = [ "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
+            max-length = 6;
+            tooltip-format = "Battery: {capacity}%\nTime left: {timeTo}";
+          };
+          "bluetooth" = {
+            format = "󰂯";
+            tooltip-format = "Bluetooth: {controller_alias} ({status})";
+            tooltip-format-connected = "Bluetooth: {controller_alias}\n\n{device_enumerate}";
+            tooltip-format-enumerate-connected = "{device_alias}";
+            tooltip-format-enumerate-connected-battery = "{device_alias} {device_battery_percentage}%";
+            on-click = "blueman-manager";
+          };
+
+
+          "cpu" = {
+            interval = 5;
+            format = " {usage}%";
+            tooltip = true;
+            states = {
+              warning = 70;
+              critical = 90;
+            };
+          };
+          "memory" = {
+            interval = 10;
+            format = " {}%";
+            tooltip = true;
+            tooltip-format = "Memory: {used:0.1f}G/{total:0.1f}G ({percentage}%)";
+            states = {
+              warning = 70;
+              critical = 90;
+            };
+          };
+          "disk" = {
+            interval = 30;
+            format = "󰆼 {percentage_used}%";
+            path = "/";
+            tooltip = true;
+            "tooltip-format" = "Disk: {used} used out of {total} on {path}";
+            states = {
+              warning = 70;
+              critical = 85;
+            };
+          };
 
           "hyprland/window" = {
             format = "{}";
@@ -49,43 +194,56 @@
           };
           "network" = {
             format-wifi = "  {essid}";
-            format-ethernet = "  Connected";
-            format-disconnected = "  Disconnected";
+            format-ethernet = " ";
+            format-disconnected = " ";
             tooltip-format = "{ifname} via {gwaddr}";
-            on-click = "nm-connection-editor"; # or your preferred wifi menu
+            tooltip-format-wifi = "{ifname} {essid} ({signalStrength}%)";
+            tooltip-format-ethernet = "{ifname} via {gwaddr}";
+            tooltip-format-disconnected = "Disconnected";
+            on-click = "nm-connection-editor";
           };
-          "battery" = {
-            states = {
-              # "good" = 95;
-              "warning" = 30;
-              "critical" = 15;
-            };
-            format = "{icon}  {capacity}%";
-            format-charging = "  {capacity}%";
-            format-plugged = "  {capacity}%";
-            format-icons = [ "" "" "" "" "" ];
-          };
+
           "pulseaudio" = {
             format = "{icon} {volume}%";
-            format-muted = " Muted";
+            format-bluetooth = "{icon}  {volume}%";
+            format-muted = " {volume}%";
             format-icons = {
-              "headphone" = "";
-              "hands-free" = "";
-              "headset" = "";
-              "phone" = "";
-              "portable" = "";
-              "default" = [ "" "" "" ];
+              headphone = "";
+              phone = "";
+              phone-muted = "";
+              portable = "";
+              car = "";
+              default = [ "" "" "" ];
             };
             # This is the magic: Clicking the icon opens the mixer
             on-click = "pavucontrol";
+            on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
           };
-          tray = {
+          "tray" = {
             icon-size = 18;
             spacing = 10;
           };
-          clock = {
-            format = " {:%R   %d/%m}";
-            tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
+          "clock" = {
+            format = " {:%R   %A, %d. %B, %Y}";
+            tooltip-format = "<tt><small>{calendar}</small></tt>";
+            calendar = {
+              mode = "year";
+              mode-mon-col = 3;
+              weeks-pos = "right";
+              on-scroll = 1;
+              format = {
+                months = "<span color='#${config.lib.stylix.colors.base0A}'><b>{}</b></span>";
+                days = "<span color='#${config.lib.stylix.colors.base0B}'><b>{}</b></span>";
+                weeks = "<span color='#${config.lib.stylix.colors.base0C}'><b>W{}</b></span>";
+                weekdays = "<span color='#${config.lib.stylix.colors.base0D}'><b>{}</b></span>";
+                today = "<span color='#${config.lib.stylix.colors.base08}'><b><u>{}</u></b></span>";
+              };
+            };
+            actions = {
+              on-click-right = "mode";
+              on-scroll-up = "shift_down";
+              on-scroll-down = "shift_up";
+            };
           };
         };
       };

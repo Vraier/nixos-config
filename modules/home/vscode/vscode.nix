@@ -9,6 +9,9 @@
       ms-vscode.cpptools
       bbenoist.nix
       tamasfe.even-better-toml
+      github.copilot-chat
+      github.copilot
+      github.vscode-pull-request-github
     ];
   };
 }
