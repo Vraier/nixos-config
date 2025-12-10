@@ -3,7 +3,8 @@
 {
   imports = [
     ./hyprlock.nix
-    ./hyprland.nix
+    #./hyprland.nix
+    ./niri.nix
     ./waybar.nix
     ./wayland.nix
   ];

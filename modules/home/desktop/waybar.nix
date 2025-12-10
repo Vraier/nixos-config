@@ -1,8 +1,7 @@
 { lib, config, pkgs, inputs, ... }:
 
 
-# TODO: Gamemode, play around with an image, 
-# keyboard state (maybe too much), sound controls (play/pause, mpd?), 
+# TODO: Gamemode, keyboard state (maybe too much), sound controls (play/pause, mpd?), 
 # powerprofiles, privacy
 
 let
@@ -13,12 +12,10 @@ in
   config = {
     programs.waybar = {
       enable = true;
-      systemd.enable = false;
+      systemd.enable = true; # disable this when using waybar
 
       style = import ./waybar-style.nix {
-        # Pass the Stylix colors (hex codes without #)
         colors = config.lib.stylix.colors;
-        # Pass the Stylix fonts
         fonts = config.stylix.fonts;
       };
 
@@ -42,7 +39,8 @@ in
             #"hyprland/window"
           ];
           modules-center = [
-            "hyprland/workspaces"
+            #"hyprland/workspaces"
+            "niri/workspaces"
           ];
           modules-right = [
             "group/context"
@@ -103,13 +101,13 @@ in
           };
 
           "custom/nixos-logo" = {
-            format = "<span color=\"#${iconColor}\"> </span>"; 
+            format = "<span color=\"#${iconColor}\"> </span>";
             tooltip = false;
-            on-click = "kitty"; 
+            on-click = "kitty";
           };
 
           "idle_inhibitor" = {
-            format = "{icon} ";
+            format = "{icon}";
             format-icons = {
               activated = "";
               deactivated = "";
@@ -192,15 +190,11 @@ in
             };
           };
 
-          "hyprland/window" = {
-            format = "{}";
-            separate-outputs = true;
-          };
           "hyprland/workspaces" = {
             disable-scroll = true;
             all-outputs = false;
             on-click = "activate";
-            format = " {icon}";
+            format = "{icon}";
             "format-icons" = {
               "1" = "一";
               "2" = "二";
@@ -215,6 +209,17 @@ in
               "default" = "·";
             };
           };
+          "niri/workspaces" = {
+            format = "{icon} {value}";
+            format-icons = {
+              "browser" = "";
+              "code" = "";
+              "chat" = "";
+              "active" = "";
+              "default" = "";
+            };
+          };
+
           "custom/weather" = {
             format = "{}°C";
             tooltip = true;

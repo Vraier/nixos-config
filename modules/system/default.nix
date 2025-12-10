@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./desktop/hyprland.nix
+    ./desktop/wayland.nix
     ./stylix/stylix.nix
     ./basic/basic.nix
     ./steam/steam.nix
@@ -19,6 +19,7 @@
     btrfs-progs
     adwaita-icon-theme
     hicolor-icon-theme
-
+    alacritty
+    fuzzel
   ];
 }

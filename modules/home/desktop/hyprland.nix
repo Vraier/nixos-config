@@ -2,7 +2,6 @@
 {
   config = {
 
-    # 1. Hyprland Config
     wayland.windowManager.hyprland = {
       enable = true;
       settings = {

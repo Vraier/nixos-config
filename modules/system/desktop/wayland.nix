@@ -22,9 +22,12 @@
       theme = "catppuccin-mocha-mauve"; # Set the theme here
     };
 
-    programs.hyprland = {
+    #programs.hyprland = {
+    #  enable = true;
+    #  xwayland.enable = true;
+    #};
+    programs.niri = {
       enable = true;
-      xwayland.enable = true;
     };
 
     hardware.graphics = {
@@ -37,15 +40,8 @@
       enable = true;
       extraPortals = [
         pkgs.xdg-desktop-portal-gtk
+        pkgs.xdg-desktop-portal-gnome
       ];
-      config = {
-        common = {
-          # Use Hyprland portal for screenshots/screencasting
-          # Use GTK portal for file pickers (Open/Save dialogs)
-          default = [ "hyprland" ];
-          "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
-        };
-      };
     };
   };
 }

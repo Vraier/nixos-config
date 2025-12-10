@@ -1,5 +1,5 @@
 {
-  description = "Nixos config flake";
+  description = "My nixos config flake";
 
   inputs = {
     nixpkgs = {
@@ -15,6 +15,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     stylix = {
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -26,13 +31,14 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, stylix, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, stylix, niri, ... }@inputs: {
     nixosConfigurations = {
       jp-pc = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
         modules = [
           ./hosts/pc/configuration.nix
           inputs.home-manager.nixosModules.default
+          inputs.niri.nixosModules.niri
           stylix.nixosModules.stylix
         ];
       };
@@ -41,6 +47,7 @@
         modules = [
           ./hosts/laptop/configuration.nix
           inputs.home-manager.nixosModules.default
+          inputs.niri.nixosModules.niri
           stylix.nixosModules.stylix
         ];
       };

@@ -18,8 +18,8 @@
 
   stylix.fonts = {
     monospace = {
-      package = pkgs.nerd-fonts.jetbrains-mono;
-      name = "JetBrainsMono Nerd Font";
+      package = pkgs.jetbrains-mono;
+      name = "JetBrains Mono";
     };
     sansSerif = {
       package = pkgs.dejavu_fonts;
@@ -31,7 +31,7 @@
     };
     emoji = {
       package = pkgs.nerd-fonts.symbols-only;
-      name = "Symbols Nerd Font";
+      name = "Symbols Nerd Font Mono";
     };
   };
 
@@ -50,4 +50,11 @@
   };
 
   stylix.polarity = "either"; # "dark" "light" or "either"
+
+  fonts.packages = with pkgs; [
+    jetbrains-mono
+    nerd-fonts.symbols-only
+    noto-fonts-color-emoji
+    noto-fonts-cjk-sans
+  ];
 }
