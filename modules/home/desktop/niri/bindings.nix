@@ -3,9 +3,9 @@ let
   # Shorten the accessor to the action helpers
   actions = config.lib.niri.actions;
 
-deps = [ pkgs.jq pkgs.niri ];
+  deps = [ pkgs.jq pkgs.niri ];
 
-  # SCRIPT 1: LEFT
+  # Cool scripts to love to left column or monitor depending on position
   focusLeftAware = pkgs.writeShellScriptBin "focus-left-aware" ''
     # 1. Get the JSON once to avoid race conditions
     JSON=$(${pkgs.niri}/bin/niri msg -j windows)
@@ -28,8 +28,6 @@ deps = [ pkgs.jq pkgs.niri ];
       ${pkgs.niri}/bin/niri msg action focus-column-left
     fi
   '';
-
-  # SCRIPT 2: RIGHT
   focusRightAware = pkgs.writeShellScriptBin "focus-right-aware" ''
     JSON=$(${pkgs.niri}/bin/niri msg -j windows)
 
@@ -49,9 +47,9 @@ deps = [ pkgs.jq pkgs.niri ];
   '';
 in
 {
-home.packages = [ 
-  focusLeftAware
-  focusRightAware
+  home.packages = [
+    focusLeftAware
+    focusRightAware
     pkgs.jq # Required for the script to work
   ];
 
@@ -66,7 +64,7 @@ home.packages = [
       # --- Application Spawning ---
       "Mod+T".action = spawn "alacritty";
       "Mod+D".action = spawn "fuzzel";
-      "Super+Alt+L".action = spawn "swaylock";
+      "Super+Alt+L".action = spawn "hyprlock";
 
       # --- Session Management ---
       "Mod+Shift+E".action = quit;

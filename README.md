@@ -9,8 +9,9 @@
 
 # TODOs
 
+- repaint images with stylix
 - finish configuration of waybar
 - explore options for niri
 - explore awww wallpaper tool
 - install sway-nc
-- repaint images with stylix
+- add zsh prompt

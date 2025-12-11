@@ -2,6 +2,11 @@
 
 {
   config = {
+    environment.systemPackages = [
+      pkgs.catppuccin-sddm # display manger theme
+      pkgs.catppuccin-sddm-corners # display manger theme
+    ];
+
     boot.initrd.kernelModules = [ "amdgpu" ];
     services.xserver.enable = true;
     services.xserver.videoDrivers = [ "amdgpu" ];
@@ -11,10 +16,7 @@
       user = "jp";
     };
 
-    environment.systemPackages = [
-      pkgs.catppuccin-sddm
-      pkgs.catppuccin-sddm-corners
-    ];
+
     services.displayManager.sddm = {
       enable = true;
       wayland.enable = true;
@@ -29,6 +31,7 @@
     programs.niri = {
       enable = true;
     };
+
 
     hardware.graphics = {
       enable = true;

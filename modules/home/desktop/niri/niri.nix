@@ -7,7 +7,6 @@ in
     ./bindings.nix
   ];
 
-
   programs.niri.settings = {
     environment."NIXOS_OZONE_WL" = "1";
 
@@ -25,6 +24,7 @@ in
       };
     };
     spawn-at-startup = [
+      { command = [ "${pkgs.xwayland-satellite}/bin/xwayland-satellite" ]; }
       { command = [ "${pkgs.swww}/bin/swww-daemon" ]; }
       {
         command = [
@@ -42,9 +42,9 @@ in
       always-center-single-column = true;
       border.width = 4;
       border.active.gradient = lib.mkForce {
-        from = "#${c.base0C}"; 
-        to = "#${c.base0D}"; 
-        angle = 45; 
+        from = "#${c.base0C}";
+        to = "#${c.base0D}";
+        angle = 45;
         # relative-to = "workspace-view"; # Optional: makes the gradient fixed to screen
       };
     };
@@ -98,5 +98,6 @@ in
   home.packages = with pkgs; [
     fuzzel # need fuzzle for default niri config
     alacritty # alacritty is default terminal for niri launcher
+    xwayland-satellite # needed for steam
   ];
 }
