@@ -2,7 +2,7 @@
 
 
 # TODO: Gamemode, keyboard state (maybe too much), sound controls (play/pause, mpd?), 
-# powerprofiles, privacy
+# powerprofiles
 
 let
   c = config.lib.stylix.colors;
@@ -73,7 +73,7 @@ in
             orientation = "horizontal";
             modules = [
               "pulseaudio"
-              # Note: Privacy indicator requires a separate app/module or be integrated via scripting
+              "privacy"
             ];
           };
 
@@ -212,9 +212,9 @@ in
           "niri/workspaces" = {
             format = "{icon} {value}";
             format-icons = {
-              "browser" = "";
-              "code" = "";
-              "chat" = "";
+              #"browser" = "";
+              #"code" = "";
+              #"chat" = "";
               "active" = "";
               "default" = "";
             };
@@ -240,8 +240,8 @@ in
 
           "pulseaudio" = {
             format = "<span color=\"#${iconColor}\">{icon}</span> {volume}%";
-            #format-bluetooth = "<span color=\"#${iconColor}\">{icon} </span> {volume}%";
-            format-muted = " {volume}%";
+            #format-bluetooth = "<span color=\"#${iconColor}\">{icon} </span> {volume}%"; 
+            format-muted = "<span color=\"#${c.base03}\">{icon}</span> {volume}%";
             format-icons = {
               headphone = "";
               phone = "";
@@ -253,6 +253,28 @@ in
             # This is the magic: Clicking the icon opens the mixer
             on-click = "pavucontrol";
             on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+          };
+          "privacy" = {
+            icon-spacing = 4;
+            icon-size = 18;
+            transition-duration = 250;
+            modules = [
+              {
+                type = "screenshare";
+                tooltip = true;
+                tooltip-icon-size = 24;
+              }
+              {
+                type = "audio-out";
+                tooltip = true;
+                tooltip-icon-size = 24;
+              }
+              {
+                type = "audio-in";
+                tooltip = true;
+                tooltip-icon-size = 24;
+              }
+            ];
           };
           "tray" = {
             icon-size = 18;

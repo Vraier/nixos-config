@@ -5,10 +5,7 @@
   stylix.enableReleaseChecks = false;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
 
-  stylix.image = pkgs.fetchurl {
-    url = "https://wallpaperbat.com/img/906223-kh3-wallpaper-4k-hearts-post.jpg";
-    hash = "sha256-HeenWJf2zN8OiaO5ibJONKh4loYJdJVyADIR7woDshY=";
-  };
+  stylix.image = ../../../assets/wallpapers/gruvbox/Bixby_Creek_Bridge_over_a_cliff.jpg;
 
   stylix.cursor = {
     package = pkgs.bibata-cursors;

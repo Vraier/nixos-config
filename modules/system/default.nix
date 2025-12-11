@@ -20,6 +20,5 @@
     adwaita-icon-theme
     hicolor-icon-theme
     alacritty
-    fuzzel
   ];
 }

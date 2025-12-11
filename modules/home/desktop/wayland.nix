@@ -43,6 +43,7 @@
       ydotool
       libnotify # 'notify-send' command
       wttrbar
+      swww
     ];
   };
 }

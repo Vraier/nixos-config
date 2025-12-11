@@ -2,14 +2,60 @@
 let
   # Shorten the accessor to the action helpers
   actions = config.lib.niri.actions;
+
+deps = [ pkgs.jq pkgs.niri ];
+
+  # SCRIPT 1: LEFT
+  focusLeftAware = pkgs.writeShellScriptBin "focus-left-aware" ''
+    # 1. Get the JSON once to avoid race conditions
+    JSON=$(${pkgs.niri}/bin/niri msg -j windows)
+
+    # 2. Extract logic using jq
+    # We find the focused window, get its Workspace ID ($wid) and Column ($curr).
+    # Then we filter ALL windows to find only those on $wid, and get the minimum column value.
+    read CURRENT MIN <<< $(echo "$JSON" | ${pkgs.jq}/bin/jq -r '
+      (.[] | select(.is_focused)) as $f
+      | $f.workspace_id as $wid
+      | $f.layout.pos_in_scrolling_layout[0] as $curr
+      | [ .[] | select(.workspace_id == $wid) | .layout.pos_in_scrolling_layout[0] ] | min as $min
+      | "\($curr) \($min)"
+    ')
+
+    # 3. Decision Logic
+    if [ "$CURRENT" = "$MIN" ]; then
+      ${pkgs.niri}/bin/niri msg action focus-monitor-left
+    else
+      ${pkgs.niri}/bin/niri msg action focus-column-left
+    fi
+  '';
+
+  # SCRIPT 2: RIGHT
+  focusRightAware = pkgs.writeShellScriptBin "focus-right-aware" ''
+    JSON=$(${pkgs.niri}/bin/niri msg -j windows)
+
+    read CURRENT MAX <<< $(echo "$JSON" | ${pkgs.jq}/bin/jq -r '
+      (.[] | select(.is_focused)) as $f
+      | $f.workspace_id as $wid
+      | $f.layout.pos_in_scrolling_layout[0] as $curr
+      | [ .[] | select(.workspace_id == $wid) | .layout.pos_in_scrolling_layout[0] ] | max as $max
+      | "\($curr) \($max)"
+    ')
+
+    if [ "$CURRENT" = "$MAX" ]; then
+      ${pkgs.niri}/bin/niri msg action focus-monitor-right
+    else
+      ${pkgs.niri}/bin/niri msg action focus-column-right
+    fi
+  '';
 in
 {
-  programs.niri.settings = {
-    outputs."HDMI-A-1".position = {
-      x = -1920;
-      y = 0;
-    };
+home.packages = [ 
+  focusLeftAware
+  focusRightAware
+    pkgs.jq # Required for the script to work
+  ];
 
+  programs.niri.settings = {
     binds = with actions; let
       # Helper to spawn shell commands (replaces spawn-sh)
       sh = cmd: spawn "sh" "-c" cmd;
@@ -46,27 +92,27 @@ in
       "Mod+W".action = toggle-column-tabbed-display;
 
       # --- Focus Movement ---
-      "Mod+Left".action = focus-column-left;
-      "Mod+Down".action = focus-window-down;
-      "Mod+Up".action = focus-window-up;
-      "Mod+Right".action = focus-column-right;
-      "Mod+H".action = focus-column-left;
-      "Mod+J".action = focus-window-down;
-      "Mod+K".action = focus-window-up;
-      "Mod+L".action = focus-column-right;
+      "Mod+Left".action.spawn = "focus-left-aware";
+      "Mod+Down".action = focus-window-or-workspace-down;
+      "Mod+Up".action = focus-window-or-workspace-up;
+      "Mod+Right".action.spawn = "focus-right-aware";
+      "Mod+H".action.spawn = "focus-left-aware";
+      "Mod+J".action = focus-window-or-workspace-down;
+      "Mod+K".action = focus-window-or-workspace-up;
+      "Mod+L".action.spawn = "focus-right-aware";
 
       "Mod+Home".action = focus-column-first;
       "Mod+End".action = focus-column-last;
 
       # --- Window Movement ---
-      "Mod+Ctrl+Left".action = move-column-left;
+      "Mod+Ctrl+Left".action = move-column-left-or-to-monitor-left;
       "Mod+Ctrl+Down".action = move-window-down;
       "Mod+Ctrl+Up".action = move-window-up;
-      "Mod+Ctrl+Right".action = move-column-right;
-      "Mod+Ctrl+H".action = move-column-left;
+      "Mod+Ctrl+Right".action = move-column-right-or-to-monitor-right;
+      "Mod+Ctrl+H".action = move-column-left-or-to-monitor-left;
       "Mod+Ctrl+J".action = move-window-down;
       "Mod+Ctrl+K".action = move-window-up;
-      "Mod+Ctrl+L".action = move-column-right;
+      "Mod+Ctrl+L".action = move-column-right-or-to-monitor-right;
 
       "Mod+Ctrl+Home".action = move-column-to-first;
       "Mod+Ctrl+End".action = move-column-to-last;

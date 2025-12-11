@@ -6,3 +6,11 @@
 - Clone this repository, create a new folder for the host and add it to `flake.nix`
 - Copy over the important information from `hardwar-configuration.nix` and `configuration.nix`
 - Rebuilt the flake with `sudo nixos-rebuild switch --flake ~/nixos-config#host-name`
+
+# TODOs
+
+- finish configuration of waybar
+- explore options for niri
+- explore awww wallpaper tool
+- install sway-nc
+- repaint images with stylix

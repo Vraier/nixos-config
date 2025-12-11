@@ -1,13 +1,11 @@
 { config, pkgs, ... }:
 
 {
-  programs.discord = {
-    enable = true;
-    #enableOpenBrowser = true;
-  };
+  programs.vesktop.enable = true;
+  # programs.discord.enable = true; # will i ever use you?
 
   home.packages = with pkgs; [
     xdg-desktop-portal-hyprland
-    # armcord # An unofficial client built on Electron/Nativefier
+    pkgs.xdg-desktop-portal-gnome
   ];
 }

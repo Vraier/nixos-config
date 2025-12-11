@@ -19,7 +19,6 @@
        padding: 5px 0px;
        border-radius: 20px;
        margin-bottom: 0px;
-
        margin-top: -22px; 
        padding-top: 25px;
    }
@@ -95,6 +94,14 @@
        transition: all 0.3s ease;
    }
 
+   #pulseaudio.bluetoothed {
+       color: #${colors.base00};
+       background-color: #${colors.base0D};
+   }
+   #pulseaudio.source-muted {
+       color: #${colors.base00};
+       background-color: #${colors.base0A};
+   }
    #pulseaudio.muted {
        color: #${colors.base03};
    }

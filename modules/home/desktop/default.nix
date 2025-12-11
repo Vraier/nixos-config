@@ -2,10 +2,13 @@
 
 {
   imports = [
-    ./hyprlock.nix
-    #./hyprland.nix
-    ./niri.nix
-    ./waybar.nix
     ./wayland.nix
+
+    #./hyprland.nix
+    ./niri/niri.nix
+
+    ./waybar.nix
+    ./hyprlock.nix
+    ./fuzzel.nix
   ];
 }
