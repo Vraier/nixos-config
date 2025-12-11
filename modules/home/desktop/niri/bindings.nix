@@ -3,16 +3,12 @@ let
   # Shorten the accessor to the action helpers
   actions = config.lib.niri.actions;
 
-  deps = [ pkgs.jq pkgs.niri ];
-
-  # Cool scripts to love to left column or monitor depending on position
+  # Cool scripts to move to left column or monitor depending on position
   focusLeftAware = pkgs.writeShellScriptBin "focus-left-aware" ''
     # 1. Get the JSON once to avoid race conditions
     JSON=$(${pkgs.niri}/bin/niri msg -j windows)
 
     # 2. Extract logic using jq
-    # We find the focused window, get its Workspace ID ($wid) and Column ($curr).
-    # Then we filter ALL windows to find only those on $wid, and get the minimum column value.
     read CURRENT MIN <<< $(echo "$JSON" | ${pkgs.jq}/bin/jq -r '
       (.[] | select(.is_focused)) as $f
       | $f.workspace_id as $wid
@@ -28,6 +24,7 @@ let
       ${pkgs.niri}/bin/niri msg action focus-column-left
     fi
   '';
+  
   focusRightAware = pkgs.writeShellScriptBin "focus-right-aware" ''
     JSON=$(${pkgs.niri}/bin/niri msg -j windows)
 
@@ -50,21 +47,42 @@ in
   home.packages = [
     focusLeftAware
     focusRightAware
-    pkgs.jq # Required for the script to work
+    pkgs.jq
+    pkgs.swayosd
   ];
 
   programs.niri.settings = {
+    
+    # --- Start the SwayOSD Daemon ---
+    # (Optional if you enabled the systemd service, but safe to keep)
+    spawn-at-startup = [
+      # { command = [ "${pkgs.swayosd}/bin/swosd-server" ]; }
+    ];
+
     binds = with actions; let
-      # Helper to spawn shell commands (replaces spawn-sh)
+      # Helper to spawn shell commands
       sh = cmd: spawn "sh" "-c" cmd;
+      
+      # FIXED HELPER 1: For commands that take a value (Volume, Brightness, Media)
+      # Syntax: --flag=value
+      osd-set = type: arg: spawn "${pkgs.swayosd}/bin/swayosd-client" "--${type}=${arg}";
+      
     in
     {
       # --- System & Information ---
       "Mod+Shift+Slash".action = show-hotkey-overlay;
+      
       # --- Application Spawning ---
       "Mod+T".action = spawn "alacritty";
       "Mod+D".action = spawn "fuzzel";
       "Super+Alt+L".action = spawn "hyprlock";
+
+      # Paste from history or delete from hisotry
+      "Mod+V".action = sh "cliphist list | fuzzel --dmenu | cliphist decode | wl-copy";
+      "Mod+Alt+V".action = sh "cliphist list | fuzzel --dmenu | cliphist delete";
+
+      # Sway Notification Center
+      "Mod+Shift+N".action = sh "swaync-client -t -sw";
 
       # --- Session Management ---
       "Mod+Shift+E".action = quit;
@@ -85,8 +103,9 @@ in
       "Mod+Ctrl+C".action = center-visible-columns;
 
       # Floating / Tiling
-      "Mod+V".action = toggle-window-floating;
-      "Mod+Shift+V".action = switch-focus-between-floating-and-tiling;
+      "Mod+Shift+V".action = toggle-window-floating;
+      #"Mod+V".action = toggle-window-floating;
+      #"Mod+Shift+V".action = switch-focus-between-floating-and-tiling;
       "Mod+W".action = toggle-column-tabbed-display;
 
       # --- Focus Movement ---
@@ -179,22 +198,26 @@ in
         repeat = false;
       };
 
-      # --- Multimedia Keys ---
-      # Volume
-      "XF86AudioRaiseVolume" = { allow-when-locked = true; action = sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; };
-      "XF86AudioLowerVolume" = { allow-when-locked = true; action = sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; };
-      "XF86AudioMute" = { allow-when-locked = true; action = sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; };
-      "XF86AudioMicMute" = { allow-when-locked = true; action = sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; };
+      # --- Multimedia Keys (Integrated with SwayOSD) ---
+      
+      # 1. Output Volume
+      "XF86AudioRaiseVolume" = { allow-when-locked = true; action = osd-set "output-volume" "raise"; };
+      "XF86AudioLowerVolume" = { allow-when-locked = true; action = osd-set "output-volume" "lower"; };
+      "XF86AudioMute"        = { allow-when-locked = true; action = osd-set "output-volume" "mute-toggle"; };
+      
+      # 2. Input Volume (Microphone)
+      "XF86AudioMicMute"     = { allow-when-locked = true; action = osd-set "input-volume"  "mute-toggle"; };
 
-      # Playback
-      "XF86AudioPlay" = { allow-when-locked = true; action = sh "playerctl play-pause"; };
-      "XF86AudioStop" = { allow-when-locked = true; action = sh "playerctl stop"; };
-      "XF86AudioPrev" = { allow-when-locked = true; action = sh "playerctl previous"; };
-      "XF86AudioNext" = { allow-when-locked = true; action = sh "playerctl next"; };
+      # 3. Brightness
+      "XF86MonBrightnessUp"   = { allow-when-locked = true; action = osd-set "brightness" "raise"; };
+      "XF86MonBrightnessDown" = { allow-when-locked = true; action = osd-set "brightness" "lower"; };
 
-      # Brightness
-      "XF86MonBrightnessUp" = { allow-when-locked = true; action = sh "brightnessctl --class=backlight set +10%"; };
-      "XF86MonBrightnessDown" = { allow-when-locked = true; action = sh "brightnessctl --class=backlight set 10%-"; };
+      # 4. Media Player Controls (Now shows song/icon on screen!)
+      # Note: We use "playerctl" as the type, and "play-pause" etc as the argument
+      "XF86AudioPlay" = { allow-when-locked = true; action = osd-set "playerctl" "play-pause"; };
+      "XF86AudioStop" = { allow-when-locked = true; action = osd-set "playerctl" "stop"; };
+      "XF86AudioPrev" = { allow-when-locked = true; action = osd-set "playerctl" "prev"; };
+      "XF86AudioNext" = { allow-when-locked = true; action = osd-set "playerctl" "next"; };
 
       # --- Scroll Wheel Binds ---
       "Mod+WheelScrollDown" = { cooldown-ms = 150; action = focus-workspace-down; };
@@ -210,12 +233,10 @@ in
       "Mod+Shift+WheelScrollDown".action = focus-column-right;
       "Mod+Shift+WheelScrollUp".action = focus-column-left;
       "Mod+Ctrl+Shift+WheelScrollDown".action = move-column-right;
-      "Mod+Ctrl+Shift+WheelScrollUp".action = move-column-left;
+      "Mod+Ctrl+Shift+WheelScrollUp".action = focus-column-left;
 
     } // (
-      # FIXED LOOP:
-      # We bypass the 'actions' helper functions and set the config path directly.
-      # This ensures 'move-column-to-workspace' works regardless of helper naming.
+      # FIXED LOOP
       builtins.listToAttrs (builtins.concatLists (builtins.genList
         (x:
           let
@@ -223,12 +244,10 @@ in
             s = toString n;
           in
           [
-            # Focus workspace 1-9
             {
               name = "Mod+${s}";
               value = { action.focus-workspace = n; };
             }
-            # Move column to workspace 1-9
             {
               name = "Mod+Ctrl+${s}";
               value = { action.move-column-to-workspace = n; };

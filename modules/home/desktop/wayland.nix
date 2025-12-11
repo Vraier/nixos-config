@@ -2,10 +2,6 @@
 
 {
   config = {
-    programs.rofi = {
-      enable = true;
-    };
-
     programs.kitty = {
       enable = true;
       settings = {
@@ -18,32 +14,34 @@
       };
     };
 
-    services.dunst = {
+    # clipboard history
+    services.cliphist = {
       enable = true;
-      settings = {
-        global = {
-          origin = "top-right";
-        };
-      };
+      allowImages = true;
     };
+    
+    # nice display for volume changes and brightness changes (integrated into niri bindings)
+    services.swayosd = {
+      enable = true;
+      topMargin = 0.08;
+    };
+
 
     programs.hyprlock.enable = true;
     services.network-manager-applet.enable = true;
 
     home.packages = with pkgs; [
-      grim
       qt6.qtwayland
-      slurp
-      waypipe
-      wf-recorder
-      wl-mirror
-      wl-clipboard
-      wlogout
-      wtype
-      ydotool
-      libnotify # 'notify-send' command
-      wttrbar
-      swww
+      qt5.qtwayland
+      swaynotificationcenter  # nice notification center for wayland
+      polkit_gnome            # answer root password queries 
+      wl-clipboard            
+      cliphist
+      libnotify               # 'notify-send' command
+      wttrbar                 # for weather widget
+      swww                    # for wallpaper setting
+      waypaper                # for pickking wallpapers
+      #nh                    # nix shell helper   
     ];
   };
 }

@@ -2,7 +2,7 @@
    * {
        border: none;
        border-radius: 0;
-       font-family: "${fonts.monospace.name}", "${fonts.emoji.name}"; 
+       font-family: "JetBrains Mono", "${fonts.emoji.name}"; 
        font-size: 16px;
        min-height: 0;
    }

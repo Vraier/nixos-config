@@ -19,7 +19,7 @@
   users.users.jp = {
     isNormalUser = true;
     description = "Jean-Pierre";
-    extraGroups = [ "networkmanager" "wheel" "input" ];
+    extraGroups = [ "networkmanager" "wheel" "input" "video" ];
   };
 
 

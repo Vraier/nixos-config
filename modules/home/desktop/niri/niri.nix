@@ -1,15 +1,22 @@
 { config, pkgs, lib, ... }:
 let
   c = config.lib.stylix.colors;
+
+  slideshow-script = pkgs.writeShellScriptBin "wallpaper-slideshow" ''
+    sleep 5    
+    while true; do
+      ${pkgs.waypaper}/bin/waypaper --random
+      sleep 600
+    done
+  '';
 in
+
 {
   imports = [
     ./bindings.nix
   ];
 
   programs.niri.settings = {
-    environment."NIXOS_OZONE_WL" = "1";
-
     # optain id via `niri msg outputs`
     outputs."DP-1" = {
       position = {
@@ -24,15 +31,10 @@ in
       };
     };
     spawn-at-startup = [
+      { command = [ "${pkgs.swayosd}/bin/swosd-server" ]; }
       { command = [ "${pkgs.xwayland-satellite}/bin/xwayland-satellite" ]; }
       { command = [ "${pkgs.swww}/bin/swww-daemon" ]; }
-      {
-        command = [
-          "sh"
-          "-c"
-          "while ! ${pkgs.swww}/bin/swww query; do sleep 0.1; done && ${pkgs.swww}/bin/swww img ${config.stylix.image} --transition-type grow"
-        ];
-      }
+      { command = [ "${slideshow-script}/bin/wallpaper-slideshow" ]; }
     ];
 
     # Layout
@@ -99,5 +101,6 @@ in
     fuzzel # need fuzzle for default niri config
     alacritty # alacritty is default terminal for niri launcher
     xwayland-satellite # needed for steam
+    slideshow-script
   ];
 }

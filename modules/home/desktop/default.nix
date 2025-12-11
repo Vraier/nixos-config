@@ -4,7 +4,7 @@
   imports = [
     ./wayland.nix
 
-    #./hyprland.nix
+    #./hyprland/hyprland.nix
     ./niri/niri.nix
 
     ./waybar.nix

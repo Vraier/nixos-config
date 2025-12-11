@@ -11,7 +11,10 @@
 
 - repaint images with stylix
 - finish configuration of waybar
+    - fix moving mute button
+    - fix the privacy indicator
 - explore options for niri
 - explore awww wallpaper tool
 - install sway-nc
 - add zsh prompt
+- fix steam

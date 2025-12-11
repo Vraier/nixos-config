@@ -240,8 +240,8 @@ in
 
           "pulseaudio" = {
             format = "<span color=\"#${iconColor}\">{icon}</span> {volume}%";
-            #format-bluetooth = "<span color=\"#${iconColor}\">{icon} </span> {volume}%"; 
-            format-muted = "<span color=\"#${c.base03}\">{icon}</span> {volume}%";
+            #format-bluetooth = "<span color=\"#${iconColor}\">{icon} </span> {volume}%"; 
+            format-muted = "<span color=\"#${c.base03}\"></span> {volume}%";
             format-icons = {
               headphone = "";
               phone = "";
