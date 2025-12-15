@@ -2,46 +2,6 @@
 let
   # Shorten the accessor to the action helpers
   actions = config.lib.niri.actions;
-
-  # Cool scripts to move to left column or monitor depending on position
-  focusLeftAware = pkgs.writeShellScriptBin "focus-left-aware" ''
-    # 1. Get the JSON once to avoid race conditions
-    JSON=$(${pkgs.niri}/bin/niri msg -j windows)
-
-    # 2. Extract logic using jq
-    read CURRENT MIN <<< $(echo "$JSON" | ${pkgs.jq}/bin/jq -r '
-      (.[] | select(.is_focused)) as $f
-      | $f.workspace_id as $wid
-      | $f.layout.pos_in_scrolling_layout[0] as $curr
-      | [ .[] | select(.workspace_id == $wid) | .layout.pos_in_scrolling_layout[0] ] | min as $min
-      | "\($curr) \($min)"
-    ')
-
-    # 3. Decision Logic
-    if [ "$CURRENT" = "$MIN" ]; then
-      ${pkgs.niri}/bin/niri msg action focus-monitor-left
-    else
-      ${pkgs.niri}/bin/niri msg action focus-column-left
-    fi
-  '';
-
-  focusRightAware = pkgs.writeShellScriptBin "focus-right-aware" ''
-    JSON=$(${pkgs.niri}/bin/niri msg -j windows)
-
-    read CURRENT MAX <<< $(echo "$JSON" | ${pkgs.jq}/bin/jq -r '
-      (.[] | select(.is_focused)) as $f
-      | $f.workspace_id as $wid
-      | $f.layout.pos_in_scrolling_layout[0] as $curr
-      | [ .[] | select(.workspace_id == $wid) | .layout.pos_in_scrolling_layout[0] ] | max as $max
-      | "\($curr) \($max)"
-    ')
-
-    if [ "$CURRENT" = "$MAX" ]; then
-      ${pkgs.niri}/bin/niri msg action focus-monitor-right
-    else
-      ${pkgs.niri}/bin/niri msg action focus-column-right
-    fi
-  '';
 in
 {
   home.packages = [
@@ -53,8 +13,6 @@ in
 
   programs.niri.settings = {
 
-    # --- Start the SwayOSD Daemon ---
-    # (Optional if you enabled the systemd service, but safe to keep)
     spawn-at-startup = [
       # { command = [ "${pkgs.swayosd}/bin/swosd-server" ]; }
     ];
@@ -66,7 +24,7 @@ in
       # FIXED HELPER 1: For commands that take a value (Volume, Brightness, Media)
       # Syntax: --flag=value
       osd-set = type: arg: spawn "${pkgs.swayosd}/bin/swayosd-client" "--${type}=${arg}";
-    in lib.attrsets.mergeAttrsList
+    in 
     {
       #"Alt+Tab".action.next-window = { };
 
@@ -117,14 +75,14 @@ in
       "Mod+W".action = toggle-column-tabbed-display;
 
       # --- Focus Movement ---
-      "Mod+Left".action.spawn = "focus-left-aware";
+      "Mod+Left".action = focus-column-or-monitor-left;
       "Mod+Down".action = focus-window-or-workspace-down;
       "Mod+Up".action = focus-window-or-workspace-up;
-      "Mod+Right".action.spawn = "focus-right-aware";
-      "Mod+H".action.spawn = "focus-left-aware";
+      "Mod+Right".action = focus-column-or-monitor-right;
+      "Mod+H".action = focus-column-or-monitor-left;
       "Mod+J".action = focus-window-or-workspace-down;
       "Mod+K".action = focus-window-or-workspace-up;
-      "Mod+L".action.spawn = "focus-right-aware";
+      "Mod+L".action = focus-column-or-monitor-right;
 
       "Mod+Home".action = focus-column-first;
       "Mod+End".action = focus-column-last;
