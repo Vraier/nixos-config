@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, pkgs, inputs, ... }:
 
 {
   config = {
@@ -28,8 +28,11 @@
     #  enable = true;
     #  xwayland.enable = true;
     #};
+    
+    nixpkgs.overlays = [ inputs.niri.overlays.niri ];
     programs.niri = {
       enable = true;
+      package = pkgs.niri-unstable;
     };
 
 

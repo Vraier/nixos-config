@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 let
   c = config.lib.stylix.colors;
 
@@ -16,7 +16,13 @@ in
     ./bindings.nix
   ];
 
+    programs.niri = {
+      package = pkgs.niri-unstable;
+    };
+
+
   programs.niri.settings = {
+
     # optain id via `niri msg outputs`
     outputs."DP-1" = {
       position = {
@@ -80,6 +86,13 @@ in
       {
         matches = [{ app-id = "^(Alacritty)$"; is-active = true; }];
         opacity = 1.0;
+      }
+
+      {
+        matches = [{ title = "^(Theme Switcher)$"; }];
+        open-floating = true;
+        max-height = 300;
+        max-width = 600;
       }
     ];
 

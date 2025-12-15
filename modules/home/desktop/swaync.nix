@@ -2,7 +2,7 @@
 
   services.swaync = {
     enable = true;
-    
+
     # General Settings (The 'config.json' equivalent)
     settings = {
       positionX = "right";
@@ -11,16 +11,16 @@
       control-center-layer = "top";
       layer-shell = true;
       cssPriority = "user";
-      
+
       # The "Do Not Disturb" widget settings
       widgets = [
         "inhibit"
         "title"
         "dnd"
-        "mpris"    # Media controls
+        "mpris" # Media controls
         "notifications"
       ];
-      
+
       widget-config = {
         title = {
           text = "Notifications";

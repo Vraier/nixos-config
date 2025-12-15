@@ -24,7 +24,7 @@ let
       ${pkgs.niri}/bin/niri msg action focus-column-left
     fi
   '';
-  
+
   focusRightAware = pkgs.writeShellScriptBin "focus-right-aware" ''
     JSON=$(${pkgs.niri}/bin/niri msg -j windows)
 
@@ -52,7 +52,7 @@ in
   ];
 
   programs.niri.settings = {
-    
+
     # --- Start the SwayOSD Daemon ---
     # (Optional if you enabled the systemd service, but safe to keep)
     spawn-at-startup = [
@@ -62,16 +62,17 @@ in
     binds = with actions; let
       # Helper to spawn shell commands
       sh = cmd: spawn "sh" "-c" cmd;
-      
+
       # FIXED HELPER 1: For commands that take a value (Volume, Brightness, Media)
       # Syntax: --flag=value
       osd-set = type: arg: spawn "${pkgs.swayosd}/bin/swayosd-client" "--${type}=${arg}";
-      
-    in
+    in lib.attrsets.mergeAttrsList
     {
+      #"Alt+Tab".action.next-window = { };
+
       # --- System & Information ---
       "Mod+Shift+Slash".action = show-hotkey-overlay;
-      
+
       # --- Application Spawning ---
       "Mod+T".action = spawn "alacritty";
       "Mod+D".action = spawn "fuzzel";
@@ -83,6 +84,13 @@ in
 
       # Sway Notification Center
       "Mod+Shift+N".action = sh "swaync-client -t -sw";
+      "Mod+Shift+T".action = spawn "sh" "-c" ''
+        THEMES=$(switch-theme --list)
+        CHOSEN=$(echo "$THEMES" | fuzzel --dmenu -p " Theme: " --lines 6 --width 20)
+        if [ -n "$CHOSEN" ]; then
+          kitty --title "Theme Switcher" switch-theme "$CHOSEN"
+        fi
+      '';
 
       # --- Session Management ---
       "Mod+Shift+E".action = quit;
@@ -199,17 +207,17 @@ in
       };
 
       # --- Multimedia Keys (Integrated with SwayOSD) ---
-      
+
       # 1. Output Volume
       "XF86AudioRaiseVolume" = { allow-when-locked = true; action = osd-set "output-volume" "raise"; };
       "XF86AudioLowerVolume" = { allow-when-locked = true; action = osd-set "output-volume" "lower"; };
-      "XF86AudioMute"        = { allow-when-locked = true; action = osd-set "output-volume" "mute-toggle"; };
-      
+      "XF86AudioMute" = { allow-when-locked = true; action = osd-set "output-volume" "mute-toggle"; };
+
       # 2. Input Volume (Microphone)
-      "XF86AudioMicMute"     = { allow-when-locked = true; action = osd-set "input-volume"  "mute-toggle"; };
+      "XF86AudioMicMute" = { allow-when-locked = true; action = osd-set "input-volume" "mute-toggle"; };
 
       # 3. Brightness
-      "XF86MonBrightnessUp"   = { allow-when-locked = true; action = osd-set "brightness" "raise"; };
+      "XF86MonBrightnessUp" = { allow-when-locked = true; action = osd-set "brightness" "raise"; };
       "XF86MonBrightnessDown" = { allow-when-locked = true; action = osd-set "brightness" "lower"; };
 
       # 4. Media Player Controls (Now shows song/icon on screen!)
