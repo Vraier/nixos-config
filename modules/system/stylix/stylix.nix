@@ -121,9 +121,9 @@ in
   };
 
   #specialisation."tokyo-night".configuration.stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-dark.yaml";
-  
+
   #specialisation."onedark".configuration.stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/onedark.yaml";
-  
+
   #specialisation."everforest".configuration.stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/everforest.yaml";
 
   #specialisation."rose-pine".configuration.stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";

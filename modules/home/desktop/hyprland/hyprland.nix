@@ -7,7 +7,7 @@
       settings = {
         monitor = ",preferred,auto-left,1";
         "$mod" = "SUPER";
-        "$terminal" = "kitty";
+        "$terminal" = "ghostty";
         "$menu" = "rofi -show drun -show-icons";
 
         exec-once = [

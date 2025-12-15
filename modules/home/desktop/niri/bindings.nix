@@ -4,13 +4,6 @@ let
   actions = config.lib.niri.actions;
 in
 {
-  home.packages = [
-    focusLeftAware
-    focusRightAware
-    pkgs.jq
-    pkgs.swayosd
-  ];
-
   programs.niri.settings = {
 
     spawn-at-startup = [
@@ -21,10 +14,9 @@ in
       # Helper to spawn shell commands
       sh = cmd: spawn "sh" "-c" cmd;
 
-      # FIXED HELPER 1: For commands that take a value (Volume, Brightness, Media)
-      # Syntax: --flag=value
+      # To display SwayOSD notifications for multimedia keys
       osd-set = type: arg: spawn "${pkgs.swayosd}/bin/swayosd-client" "--${type}=${arg}";
-    in 
+    in
     {
       #"Alt+Tab".action.next-window = { };
 
@@ -32,8 +24,8 @@ in
       "Mod+Shift+Slash".action = show-hotkey-overlay;
 
       # --- Application Spawning ---
-      "Mod+T".action = spawn "alacritty";
-      "Mod+D".action = spawn "fuzzel";
+      "Mod+Return".action = spawn "ghostty";
+      "Mod+Space".action = spawn "fuzzel";
       "Super+Alt+L".action = spawn "hyprlock";
 
       # Paste from history or delete from hisotry
@@ -42,11 +34,11 @@ in
 
       # Sway Notification Center
       "Mod+Shift+N".action = sh "swaync-client -t -sw";
-      "Mod+Shift+T".action = spawn "sh" "-c" ''
+      "Mod+T".action = spawn "sh" "-c" ''
         THEMES=$(switch-theme --list)
         CHOSEN=$(echo "$THEMES" | fuzzel --dmenu -p " Theme: " --lines 6 --width 20)
         if [ -n "$CHOSEN" ]; then
-          kitty --title "Theme Switcher" switch-theme "$CHOSEN"
+          ghostty --title="Theme Switcher" -e switch-theme "$CHOSEN"
         fi
       '';
 
@@ -153,39 +145,35 @@ in
       "Mod+Shift+Minus".action = set-window-height "-10%";
       "Mod+Shift+Equal".action = set-window-height "+10%";
 
-      # --- Screenshots ---
+      # Screenshots
       "Print".action.screenshot = { show-pointer = false; };
       "Mod+Print".action.screenshot-screen = { show-pointer = false; };
       "Mod+Shift+Print".action.screenshot-window = { };
 
-      # --- Overview ---
       "Mod+O" = {
         action = toggle-overview;
         repeat = false;
       };
 
-      # --- Multimedia Keys (Integrated with SwayOSD) ---
-
-      # 1. Output Volume
+      # Output Volume
       "XF86AudioRaiseVolume" = { allow-when-locked = true; action = osd-set "output-volume" "raise"; };
       "XF86AudioLowerVolume" = { allow-when-locked = true; action = osd-set "output-volume" "lower"; };
       "XF86AudioMute" = { allow-when-locked = true; action = osd-set "output-volume" "mute-toggle"; };
 
-      # 2. Input Volume (Microphone)
+      # Microphone
       "XF86AudioMicMute" = { allow-when-locked = true; action = osd-set "input-volume" "mute-toggle"; };
 
-      # 3. Brightness
+      # Brightness
       "XF86MonBrightnessUp" = { allow-when-locked = true; action = osd-set "brightness" "raise"; };
       "XF86MonBrightnessDown" = { allow-when-locked = true; action = osd-set "brightness" "lower"; };
 
-      # 4. Media Player Controls (Now shows song/icon on screen!)
-      # Note: We use "playerctl" as the type, and "play-pause" etc as the argument
+      # Media Player Controls
       "XF86AudioPlay" = { allow-when-locked = true; action = osd-set "playerctl" "play-pause"; };
       "XF86AudioStop" = { allow-when-locked = true; action = osd-set "playerctl" "stop"; };
       "XF86AudioPrev" = { allow-when-locked = true; action = osd-set "playerctl" "prev"; };
       "XF86AudioNext" = { allow-when-locked = true; action = osd-set "playerctl" "next"; };
 
-      # --- Scroll Wheel Binds ---
+      # Scroll Wheel Binds 
       "Mod+WheelScrollDown" = { cooldown-ms = 150; action = focus-workspace-down; };
       "Mod+WheelScrollUp" = { cooldown-ms = 150; action = focus-workspace-up; };
       "Mod+Ctrl+WheelScrollDown" = { cooldown-ms = 150; action = move-column-to-workspace-down; };
@@ -202,7 +190,6 @@ in
       "Mod+Ctrl+Shift+WheelScrollUp".action = focus-column-left;
 
     } // (
-      # FIXED LOOP
       builtins.listToAttrs (builtins.concatLists (builtins.genList
         (x:
           let

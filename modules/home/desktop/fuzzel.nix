@@ -5,7 +5,7 @@
     settings = {
       main = {
         placeholder = "Run...";
-        terminal = "${pkgs.alacritty}/bin/alacritty -e";
+        terminal = "${pkgs.ghostty}/bin/ghostty -e ";
 
         # Layout
         font = lib.mkForce "${config.stylix.fonts.monospace.name}:size=20";

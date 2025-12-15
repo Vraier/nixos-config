@@ -103,7 +103,7 @@ in
           "custom/nixos-logo" = {
             format = "<span color=\"#${iconColor}\"> </span>";
             tooltip = false;
-            on-click = "kitty";
+            on-click = "ghostty";
           };
 
           "idle_inhibitor" = {

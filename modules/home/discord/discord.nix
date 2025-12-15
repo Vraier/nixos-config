@@ -6,6 +6,6 @@
 
   home.packages = with pkgs; [
     xdg-desktop-portal-hyprland
-    pkgs.xdg-desktop-portal-gnome
+    xdg-desktop-portal-gnome
   ];
 }

@@ -16,9 +16,9 @@ in
     ./bindings.nix
   ];
 
-    programs.niri = {
-      package = pkgs.niri-unstable;
-    };
+  programs.niri = {
+    package = pkgs.niri-unstable;
+  };
 
 
   programs.niri.settings = {
@@ -53,7 +53,7 @@ in
         from = "#${c.base0C}";
         to = "#${c.base0D}";
         angle = 45;
-        # relative-to = "workspace-view"; # Optional: makes the gradient fixed to screen
+        # relative-to = "workspace-view"; # makes the gradient fixed to screen
       };
     };
 
@@ -79,12 +79,12 @@ in
 
       # Transparency for specific apps
       {
-        matches = [{ app-id = "^(Alacritty)$"; }];
+        matches = [{ app-id = "^(Ghostty)$"; }];
         opacity = 0.8;
       }
 
       {
-        matches = [{ app-id = "^(Alacritty)$"; is-active = true; }];
+        matches = [{ app-id = "^(Ghostty)$"; is-active = true; }];
         opacity = 1.0;
       }
 
@@ -115,5 +115,6 @@ in
     alacritty # alacritty is default terminal for niri launcher
     xwayland-satellite # needed for steam
     slideshow-script
+    swayosd
   ];
 }
