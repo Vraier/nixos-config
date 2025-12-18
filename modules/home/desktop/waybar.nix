@@ -1,14 +1,16 @@
-{ lib, config, pkgs, inputs, ... }:
-
-
-# TODO: Gamemode, keyboard state (maybe too much), sound controls (play/pause, mpd?), 
+{
+  lib,
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
+# TODO: Gamemode, keyboard state (maybe too much), sound controls (play/pause, mpd?),
 # powerprofiles
-
 let
   c = config.lib.stylix.colors;
   iconColor = c.base0D;
-in
-{
+in {
   config = {
     programs.waybar = {
       enable = true;
@@ -145,7 +147,18 @@ in
             format = "{icon} {capacity}%";
             format-charging = "  {capacity}%";
             format-plugged = "  {capacity}%";
-            format-icons = [ "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
+            format-icons = [
+              "󰁺"
+              "󰁻"
+              "󰁼"
+              "󰁽"
+              "󰁾"
+              "󰁿"
+              "󰂀"
+              "󰂁"
+              "󰂂"
+              "󰁹"
+            ];
             max-length = 6;
             tooltip-format = "Battery: {capacity}%\nTime left: {timeTo}";
           };
@@ -157,7 +170,6 @@ in
             tooltip-format-enumerate-connected-battery = "{device_alias} {device_battery_percentage}%";
             on-click = "blueman-manager";
           };
-
 
           "cpu" = {
             interval = 5;
@@ -240,7 +252,7 @@ in
 
           "pulseaudio" = {
             format = "<span color=\"#${iconColor}\">{icon}</span> {volume}%";
-            #format-bluetooth = "<span color=\"#${iconColor}\">{icon} </span> {volume}%"; 
+            #format-bluetooth = "<span color=\"#${iconColor}\">{icon} </span> {volume}%";
             format-muted = "<span color=\"#${c.base03}\"></span> {volume}%";
             format-icons = {
               headphone = "";
@@ -248,7 +260,11 @@ in
               phone-muted = "";
               portable = "";
               car = "";
-              default = [ "" "" "" ];
+              default = [
+                ""
+                ""
+                ""
+              ];
             };
             # This is the magic: Clicking the icon opens the mixer
             on-click = "pavucontrol";

@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   imports = [
     ./desktop/wayland.nix
     ./stylix/stylix.nix
@@ -14,7 +12,7 @@
     wget
     tree
     nix-search-tv
-    nixpkgs-fmt
+    alejandra
     parted
     btrfs-progs
   ];

@@ -1,11 +1,13 @@
-{ pkgs, inputs, ... }:
-let
+{
+  pkgs,
+  inputs,
+  ...
+}: let
   pkgsStable = import inputs.nixpkgs-stable {
     system = pkgs.system;
     config.allowUnfree = true;
   };
-in
-{
+in {
   imports = [
     ./firefox/firefox.nix
     ./desktop/default.nix
@@ -24,5 +26,6 @@ in
     #pkgs.overskride # bluetooth manager, maybe will work some day :(
     pkgs.blueman
     pkgs.networkmanagerapplet
+    pkgs.signal-desktop
   ];
 }

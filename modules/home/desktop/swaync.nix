@@ -1,5 +1,4 @@
-{ pkgs, ... }: {
-
+{pkgs, ...}: {
   services.swaync = {
     enable = true;
 
@@ -38,7 +37,7 @@
     };
 
     # Styling (The 'style.css' equivalent)
-    # Since you use Stylix, you might not need much here, 
+    # Since you use Stylix, you might not need much here,
     # but this is how you add custom CSS if needed:
     style = ''
       .notification {
@@ -51,5 +50,4 @@
       }
     '';
   };
-
 }

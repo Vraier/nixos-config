@@ -1,17 +1,20 @@
-{ config, pkgs, lib, inputs, ... }:
-let
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}: let
   c = config.lib.stylix.colors;
 
   slideshow-script = pkgs.writeShellScriptBin "wallpaper-slideshow" ''
-    sleep 5    
+    sleep 5
     while true; do
       ${pkgs.waypaper}/bin/waypaper --random
       sleep 600
     done
   '';
-in
-
-{
+in {
   imports = [
     ./bindings.nix
   ];
@@ -20,9 +23,7 @@ in
     package = pkgs.niri-unstable;
   };
 
-
   programs.niri.settings = {
-
     # optain id via `niri msg outputs`
     outputs."DP-1" = {
       position = {
@@ -37,10 +38,10 @@ in
       };
     };
     spawn-at-startup = [
-      { command = [ "${pkgs.swayosd}/bin/swosd-server" ]; }
-      { command = [ "${pkgs.xwayland-satellite}/bin/xwayland-satellite" ]; }
-      { command = [ "${pkgs.swww}/bin/swww-daemon" ]; }
-      { command = [ "${slideshow-script}/bin/wallpaper-slideshow" ]; }
+      {command = ["${pkgs.swayosd}/bin/swosd-server"];}
+      {command = ["${pkgs.xwayland-satellite}/bin/xwayland-satellite"];}
+      {command = ["${pkgs.swww}/bin/swww-daemon"];}
+      {command = ["${slideshow-script}/bin/wallpaper-slideshow"];}
     ];
 
     # Layout
@@ -57,7 +58,6 @@ in
       };
     };
 
-
     # Appearance
     prefer-no-csd = true;
     window-rules = [
@@ -65,7 +65,7 @@ in
 
       # Matches everything
       {
-        matches = [ ];
+        matches = [];
 
         geometry-corner-radius = {
           top-left = 0.0;
@@ -79,17 +79,22 @@ in
 
       # Transparency for specific apps
       {
-        matches = [{ app-id = "^(Ghostty)$"; }];
+        matches = [{app-id = "^(Ghostty)$";}];
         opacity = 0.8;
       }
 
       {
-        matches = [{ app-id = "^(Ghostty)$"; is-active = true; }];
+        matches = [
+          {
+            app-id = "^(Ghostty)$";
+            is-active = true;
+          }
+        ];
         opacity = 1.0;
       }
 
       {
-        matches = [{ title = "^(Theme Switcher)$"; }];
+        matches = [{title = "^(Theme Switcher)$";}];
         open-floating = true;
         max-height = 300;
         max-width = 600;
@@ -98,16 +103,15 @@ in
 
     layer-rules = [
       {
-        matches = [{ namespace = "^launcher$"; }];
+        matches = [{namespace = "^launcher$";}];
         opacity = 0.9;
       }
 
       {
-        matches = [{ namespace = "^background$"; }];
+        matches = [{namespace = "^background$";}];
         place-within-backdrop = true;
       }
     ];
-
   };
 
   home.packages = with pkgs; [

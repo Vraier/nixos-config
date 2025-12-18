@@ -1,6 +1,9 @@
-{ lib, config, pkgs, ... }:
-
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}: {
   config = {
     programs.kitty.enable = true;
     programs.ghostty.enable = true;
@@ -17,7 +20,6 @@
       topMargin = 0.08;
     };
 
-
     programs.hyprlock.enable = true;
     services.network-manager-applet.enable = true;
 
@@ -25,14 +27,14 @@
       qt6.qtwayland
       qt5.qtwayland
       swaynotificationcenter # nice notification center for wayland
-      polkit_gnome # answer root password queries 
+      polkit_gnome # answer root password queries
       wl-clipboard
       cliphist
       libnotify # 'notify-send' command
       wttrbar # for weather widget
       swww # for wallpaper setting
       waypaper # for pickking wallpapers
-      #nh                    # nix shell helper   
+      #nh                    # nix shell helper
     ];
   };
 }

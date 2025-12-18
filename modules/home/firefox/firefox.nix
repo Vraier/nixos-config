@@ -1,6 +1,9 @@
-{ config, pkgs, inputs, ... }:
-
 {
+  config,
+  pkgs,
+  inputs,
+  ...
+}: {
   programs.firefox = {
     enable = true;
 
@@ -20,14 +23,17 @@
         force = true;
         default = "kagi";
         privateDefault = "google";
-        order = [ "kagi" "google" ];
+        order = [
+          "kagi"
+          "google"
+        ];
 
         engines = {
           "kagi" = {
-            urls = [{ template = "https://kagi.com/search?q={searchTerms}"; }];
+            urls = [{template = "https://kagi.com/search?q={searchTerms}";}];
             icon = "https://kagi.com/favicon.ico";
             updateInterval = 24 * 60 * 60 * 1000; # every day
-            definedAliases = [ "@k" ];
+            definedAliases = ["@k"];
           };
         };
       };
@@ -64,5 +70,5 @@
     };
   };
 
-  stylix.targets.firefox.profileNames = [ "default" ];
+  stylix.targets.firefox.profileNames = ["default"];
 }

@@ -1,5 +1,13 @@
-{ inputs, outputs, pkgs, ... }: {
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+{
+  inputs,
+  outputs,
+  pkgs,
+  ...
+}: {
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   nixpkgs.config.allowUnfree = true;
 
   # Services

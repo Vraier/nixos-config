@@ -31,10 +31,17 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, stylix, niri, ... }@inputs: {
+  outputs = {
+    self,
+    nixpkgs,
+    home-manager,
+    stylix,
+    niri,
+    ...
+  } @ inputs: {
     nixosConfigurations = {
       jp-pc = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
+        specialArgs = {inherit inputs;};
         modules = [
           ./hosts/pc/configuration.nix
           inputs.home-manager.nixosModules.default
@@ -43,7 +50,7 @@
         ];
       };
       jp-laptop = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
+        specialArgs = {inherit inputs;};
         modules = [
           ./hosts/laptop/configuration.nix
           inputs.home-manager.nixosModules.default

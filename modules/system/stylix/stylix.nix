@@ -1,5 +1,9 @@
-{ config, pkgs, lib, ... }:
-let
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
   defaultTheme = "gruvbox-dark-hard";
 
   switch-theme = pkgs.writeShellScriptBin "switch-theme" ''
@@ -48,15 +52,13 @@ let
       echo "Applying Specialization: $THEME..."
       sudo nixos-rebuild test --flake "$FLAKE_PATH" --specialisation "$THEME"
     fi
-    
+
     echo "Theme switch complete."
     echo "Window will close in 3 seconds..."
     sleep 3
   '';
-
-in
-{
-  environment.systemPackages = [ switch-theme ];
+in {
+  environment.systemPackages = [switch-theme];
 
   stylix.enable = true;
   stylix.enableReleaseChecks = false;

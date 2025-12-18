@@ -1,7 +1,10 @@
-{ lib, config, pkgs, ... }:
 {
+  lib,
+  config,
+  pkgs,
+  ...
+}: {
   config = {
-
     wayland.windowManager.hyprland = {
       enable = true;
       settings = {

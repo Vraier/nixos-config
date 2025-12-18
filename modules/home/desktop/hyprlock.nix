@@ -1,10 +1,13 @@
-{ config, pkgs, lib, ... }:
-let
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
   # Helper to get Stylix colors easily
   colors = config.lib.stylix.colors;
   fonts = config.stylix.fonts;
-in
-{
+in {
   programs.hyprlock = {
     enable = true;
     settings = {
