@@ -45,6 +45,7 @@ in {
     ];
 
     hotkey-overlay.hide-not-bound = true;
+    hotkey-overlay.skip-at-startup = true;
 
     # Layout
     #gestures.hot-corners.enable = false;
