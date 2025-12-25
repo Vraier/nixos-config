@@ -42,7 +42,9 @@ in {
 
         # Switch output device for audio
         "Mod+P".action = spawn "audio-switch";
+        "Mod+P".hotkey-overlay.title = "Switch Audio Output";
         "Mod+Shift+R".action = spawn "ghostty" "--title=Rebuild" "-e" "os-rebuild";
+        "Mod+Shift+R".hotkey-overlay.title = "Rebuild System";
 
         # Sway Notification Center
         "Mod+Shift+N".action = sh "swaync-client -t -sw";
