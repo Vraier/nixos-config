@@ -44,6 +44,8 @@ in {
       {command = ["${slideshow-script}/bin/wallpaper-slideshow"];}
     ];
 
+    hotkey-overlay.hide-not-bound = true;
+
     # Layout
     #gestures.hot-corners.enable = false;
     layout = {
