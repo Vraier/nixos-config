@@ -99,6 +99,8 @@ in {
       {
         matches = [{app-id = "org.pulseaudio.pavucontrol";}];
         open-floating = true;
+        min-width = 800;
+        min-height = 600;
       }
       {
         matches = [{app-id = ".blueman-manager-wrapped";}];
