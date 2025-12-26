@@ -32,6 +32,10 @@
        margin-right: -20px;
        padding-right: 25px;
    }
+   .modules-center {
+       padding-left: 5px;
+       padding-right: 5px;
+   }
 
    #hardware,
    #connectivity,

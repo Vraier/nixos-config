@@ -39,7 +39,7 @@ in {
         "Mod+V".action = sh "cliphist list | fuzzel --dmenu | cliphist decode | wl-copy";
         "Mod+V".hotkey-overlay.title = "Paste from Clipboard History";
         "Mod+Alt+V".action = sh "cliphist list | fuzzel --dmenu | cliphist delete";
-        "Mod+Alt+V".hotkey-overlay.title = "Paste from Clipboard History";
+        "Mod+Alt+V".hotkey-overlay.title = "Delete from Clipboard History";
 
         # Switch output device for audio
         "Mod+P".action = spawn "audio-switch";

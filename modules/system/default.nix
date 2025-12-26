@@ -15,5 +15,6 @@
     alejandra
     parted
     btrfs-progs
+    nvd
   ];
 }

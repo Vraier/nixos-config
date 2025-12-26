@@ -97,6 +97,13 @@ in {
       }
 
       {
+        matches = [{app-id = "org.pulseaudio.pavucontrol";}];
+        open-floating = true;
+        max-height = 600;
+        max-width = 800;
+      }
+
+      {
         matches = [{title = "^(Theme Switcher)$";}];
         open-floating = true;
         max-height = 300;
