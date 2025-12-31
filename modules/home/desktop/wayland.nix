@@ -8,6 +8,9 @@
     programs.kitty.enable = true;
     programs.ghostty.enable = true;
 
+    # display managements
+    services.kanshi.enable = true;
+
     # clipboard history
     services.cliphist = {
       enable = true;
@@ -34,7 +37,6 @@
       wttrbar # for weather widget
       swww # for wallpaper setting
       waypaper # for pickking wallpapers
-      #nh                    # nix shell helper
     ];
   };
 }

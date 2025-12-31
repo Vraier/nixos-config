@@ -12,7 +12,7 @@
 
   home-manager.users.jp = {
     home.stateVersion = "25.11";
-    programs.ssh.matchBlocks."github.com".identityFile = "~/.ssh/nixos-pc";
+    programs.ssh.matchBlocks."github.com".identityFile = "~/.ssh/nixos-LAPTOP";
   };
 
   home-manager = {
@@ -40,33 +40,10 @@
       "video"
     ];
   };
-  networking.hostName = "jp-pc";
+  networking.hostName = "jp-laptop";
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.initrd.luks.devices."luks-361c8378-276e-4a51-92a0-860a425849f6".device = "/dev/disk/by-uuid/361c8378-276e-4a51-92a0-860a425849f6";
-
-  fileSystems = {
-    "/mnt/data1" = {
-      device = "/dev/disk/by-label/data1";
-      fsType = "btrfs";
-      options = [
-        "defaults"
-        "noatime"
-        "compress=zstd"
-      ];
-      neededForBoot = false;
-    };
-    "/mnt/data2" = {
-      device = "/dev/disk/by-label/data2";
-      fsType = "btrfs";
-      options = [
-        "defaults"
-        "noatime"
-        "compress=zstd"
-      ];
-      neededForBoot = false;
-    };
-  };
+  boot.initrd.luks.devices."luks-b720dd0f-9769-45ca-a734-658d84eb3224".device = "/dev/disk/by-uuid/b720dd0f-9769-45ca-a734-658d84eb3224";
 }

@@ -7,6 +7,10 @@
 - Copy over the important information from `hardwar-configuration.nix` and `configuration.nix`
 - Rebuilt the flake with `sudo nixos-rebuild switch --flake ~/nixos-config#host-name`
 
+# Currently used tools
+- `kanshi`: for setting up displays automatically
+- `niri`: as window manager
+
 # TODOs
 
 - finish configuration of waybar
