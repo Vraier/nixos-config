@@ -41,7 +41,7 @@ in {
     # Layout
     #gestures.hot-corners.enable = false;
     layout = {
-      gaps = 20;
+      gaps = 10;
       always-center-single-column = true;
       border.width = 4;
       border.active.gradient = lib.mkForce {
