@@ -24,19 +24,8 @@ in {
   };
 
   programs.niri.settings = {
-    # optain id via `niri msg outputs`
-    outputs."DP-1" = {
-      position = {
-        x = 0;
-        y = 0;
-      };
-    };
-    outputs."HDMI-A-1" = {
-      position = {
-        x = -1920;
-        y = 360;
-      };
-    };
+    # optain monitor id via `niri msg outputs`
+
     spawn-at-startup = [
       {command = ["${pkgs.swayosd}/bin/swosd-server"];}
       {command = ["${pkgs.xwayland-satellite}/bin/xwayland-satellite"];}
