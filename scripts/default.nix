@@ -23,10 +23,8 @@
     ${builtins.readFile ./audio-switch.sh}
   '';
 in {
-  # This makes the file a module that installs the packages for you
   home.packages = [
     os-rebuild
-    switch-theme
     audio-switch
   ];
 }

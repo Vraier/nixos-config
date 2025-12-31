@@ -144,9 +144,9 @@ in {
               "warning" = 30;
               "critical" = 15;
             };
-            format = "{icon} {capacity}%";
-            format-charging = "  {capacity}%";
-            format-plugged = "  {capacity}%";
+            format = "<span color=\"#${iconColor}\">{icon}</span> {capacity}%";
+            format-charging = "<span color=\"#${iconColor}\"></span> {capacity}%";
+            format-plugged = "<span color=\"#${iconColor}\"></span> {capacity}%";
             format-icons = [
               "󰁺"
               "󰁻"
