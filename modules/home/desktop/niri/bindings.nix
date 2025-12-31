@@ -48,14 +48,6 @@ in {
         # Sway Notification Center
         "Mod+Shift+N".action = sh "swaync-client -t -sw";
         "Mod+Shift+N".hotkey-overlay.title = "Toggle Notification Center";
-        "Mod+T".action = spawn "sh" "-c" ''
-          THEMES=$(switch-theme --list)
-          CHOSEN=$(echo "$THEMES" | fuzzel --dmenu -p " Theme: " --lines 6 --width 20)
-          if [ -n "$CHOSEN" ]; then
-            ghostty --title="Theme Switcher" -e switch-theme "$CHOSEN"
-          fi
-        '';
-        "Mod+T".hotkey-overlay.title = "Switch Theme";
 
         # --- Session Management ---
         "Mod+Shift+E".action = quit;

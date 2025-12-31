@@ -8,7 +8,6 @@
 
   stylix.enable = true;
   stylix.enableReleaseChecks = false;
-  #stylix.base16Scheme = lib.mkDefault "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
   stylix.base16Scheme = lib.mkDefault "${pkgs.base16-schemes}/share/themes/gruvbox-light.yaml";
   stylix.polarity = lib.mkDefault "light";
 
@@ -60,26 +59,9 @@
     popups = 1.0;
   };
 
-  # SPECIALISATIONS
-  #specialisation."nord".configuration.stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml";
-  #specialisation."solarized-dark".configuration.stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/solarized-dark.yaml";
-
-  specialisation."dracula".configuration.stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/dracula.yaml";
-  specialisation."solarized-light".configuration = {
-    stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/solarized-light.yaml";
-    stylix.polarity = "light";
-  };
-
-  #specialisation."tokyo-night".configuration.stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-dark.yaml";
-
-  #specialisation."onedark".configuration.stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/onedark.yaml";
-
-  #specialisation."everforest".configuration.stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/everforest.yaml";
-
-  #specialisation."rose-pine".configuration.stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
-  #specialisation."rose-pine-moon".configuration.stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine-moon.yaml";
-  #specialisation."rose-pine-dawn".configuration = {
-  #  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine-dawn.yaml";
+  # SPECIALISATIONS (can be used for theme switching)
+  #specialisation."solarized-light".configuration = {
+  #  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/solarized-light.yaml";
   #  stylix.polarity = "light";
   #};
 

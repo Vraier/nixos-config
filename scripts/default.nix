@@ -9,12 +9,6 @@
     ${builtins.readFile ./os-rebuild.sh}
   '';
 
-  defaultTheme = "gruvbox-dark-hard";
-  switch-theme = pkgs.writeShellScriptBin "switch-theme" ''
-    DEFAULT="${defaultTheme}"
-    ${builtins.readFile ./switch-theme.sh}
-  '';
-
   audio-switch = pkgs.writeShellScriptBin "audio-switch" ''
     export PATH=${pkgs.lib.makeBinPath [
       pkgs.pulseaudio
