@@ -62,8 +62,12 @@ in {
 
   stylix.enable = true;
   stylix.enableReleaseChecks = false;
-  stylix.base16Scheme = lib.mkDefault "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
-  stylix.polarity = lib.mkDefault "dark";
+  #stylix.base16Scheme = lib.mkDefault "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
+  #stylix.polarity = lib.mkDefault "dark";
+
+  stylix.base16Scheme = lib.mkDefault "${pkgs.base16-schemes}/share/themes/rose-pine-dawn.yaml";
+  stylix.polarity = lib.mkDefault "light";
+
   stylix.image = ../../../assets/wallpapers/gruvbox/Bixby_Creek_Bridge_over_a_cliff.jpg;
 
   stylix.iconTheme = {

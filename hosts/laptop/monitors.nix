@@ -12,7 +12,6 @@
       profile.outputs = [
         {
           criteria = "eDP-1";
-          scale = 1.25;
           status = "enable";
         }
       ];
@@ -35,7 +34,7 @@
 
         {
           criteria = "eDP-1";
-          position = "5120,0"; # 2560 + 2560 = 5120
+          position = "5120,-400"; # 2560 + 2560 = 5120
           scale = 1.25;
         }
       ];
