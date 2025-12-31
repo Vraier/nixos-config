@@ -5,13 +5,11 @@
   ...
 }: let
   actions = config.lib.niri.actions;
-  audioSwitch = import ../../../../scripts/audio-switch.nix {inherit pkgs;};
-  osRebuild = import ../../../../scripts/os-rebuild.nix {inherit pkgs;};
 in {
-  home.packages = [
-    audioSwitch
-    osRebuild
+  imports = [
+    ../../../../scripts/default.nix
   ];
+
   programs.niri.settings = {
     spawn-at-startup = [
       # { command = [ "${pkgs.swayosd}/bin/swosd-server" ]; }
