@@ -58,6 +58,7 @@
     sleep 3
   '';
 in {
+  # https://tinted-theming.github.io/tinted-gallery/ # for more themese
   environment.systemPackages = [switch-theme];
 
   stylix.enable = true;
@@ -65,7 +66,7 @@ in {
   #stylix.base16Scheme = lib.mkDefault "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
   #stylix.polarity = lib.mkDefault "dark";
 
-  stylix.base16Scheme = lib.mkDefault "${pkgs.base16-schemes}/share/themes/rose-pine-dawn.yaml";
+  stylix.base16Scheme = lib.mkDefault "${pkgs.base16-schemes}/share/themes/gruvbox-light.yaml";
   stylix.polarity = lib.mkDefault "light";
 
   stylix.image = ../../../assets/wallpapers/gruvbox/Bixby_Creek_Bridge_over_a_cliff.jpg;
