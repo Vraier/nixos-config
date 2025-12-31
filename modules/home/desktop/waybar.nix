@@ -33,10 +33,10 @@ in {
 
           modules-left = [
             "custom/nixos-logo"
+            "group/power"
             "group/hardware"
             "group/connectivity"
             "group/audio"
-            "group/power"
             #"tray"
             #"hyprland/window"
           ];
