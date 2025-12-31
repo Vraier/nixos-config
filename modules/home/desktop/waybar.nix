@@ -159,7 +159,7 @@ in {
               "󰂂"
               "󰁹"
             ];
-            max-length = 6;
+            max-length = 7;
             tooltip-format = "Battery: {capacity}%\nTime left: {timeTo}";
           };
           "bluetooth" = {
