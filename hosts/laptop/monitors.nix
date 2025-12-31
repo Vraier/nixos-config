@@ -23,13 +23,13 @@
       profile.outputs = [
         {
           criteria = "Dell Inc. DELL P2720DC H2QVL93";
-          position = "0,0";
+          position = "2560,0";
           mode = "2560x1440";
         }
 
         {
           criteria = "Dell Inc. DELL P2720DC B10TL93";
-          position = "2560,0";
+          position = "0,0";
           mode = "2560x1440";
         }
 
