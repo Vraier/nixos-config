@@ -1,19 +1,4 @@
-{
-  pkgs,
-  config,
-  ...
-}: {
-  programs.thunar = {
-    enable = true;
-    plugins = with pkgs.xfce; [
-      thunar-archive-plugin
-      thunar-volman
-    ];
-  };
-  services.gvfs.enable = true;
-  services.tumbler.enable = true;
-
-  environment.systemPackages = [
-    pkgs.gvfs
-  ];
+{pkgs, ...}: {
+  programs.thunar.enable = true;
+  services.mullvad-vpn.enable = true;
 }
