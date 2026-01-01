@@ -41,6 +41,7 @@
     users.jp = {
       imports = [
         ../../modules/home/default.nix
+        ./monitors.nix
       ];
       home.username = "jp";
       home.homeDirectory = "/home/jp";
