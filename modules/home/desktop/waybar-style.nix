@@ -105,7 +105,7 @@
        /* Fix moving mute button */
        border-radius: 10px;
        transition: all 0.3s ease;
-       min-width: 65px;
+       min-width: 70px;
        padding-left: 0px;
        padding-right: 0px;
    }
