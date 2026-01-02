@@ -30,7 +30,7 @@ in {
       {command = ["${pkgs.swayosd}/bin/swosd-server"];}
       {command = ["${pkgs.xwayland-satellite}/bin/xwayland-satellite"];}
       {command = ["${pkgs.swww}/bin/swww-daemon"];}
-      {command = ["${slideshow-script}/bin/wallpaper-slideshow"];}
+      #{command = ["${slideshow-script}/bin/wallpaper-slideshow"];}
 
       {command = ["${pkgs.kanshi}/bin/kanshi"];}
     ];
