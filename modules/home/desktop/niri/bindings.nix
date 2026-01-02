@@ -88,12 +88,12 @@ in {
 
         # --- Window Movement ---
         "Mod+Ctrl+Left".action = move-column-left-or-to-monitor-left;
-        "Mod+Ctrl+Down".action = move-window-down;
-        "Mod+Ctrl+Up".action = move-window-up;
+        "Mod+Ctrl+Down".action = move-column-to-workspace-down;
+        "Mod+Ctrl+Up".action = move-column-to-workspace-up;
         "Mod+Ctrl+Right".action = move-column-right-or-to-monitor-right;
         "Mod+Ctrl+H".action = move-column-left-or-to-monitor-left;
-        "Mod+Ctrl+J".action = move-window-down;
-        "Mod+Ctrl+K".action = move-window-up;
+        "Mod+Ctrl+J".action = move-column-to-workspace-down;
+        "Mod+Ctrl+K".action = move-column-to-workspace-up;
         "Mod+Ctrl+L".action = move-column-right-or-to-monitor-right;
 
         "Mod+Ctrl+Home".action = move-column-to-first;
