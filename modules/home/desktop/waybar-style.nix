@@ -101,7 +101,7 @@
        transition: all 0.3s ease;
    }
 
-   #pulseaudio {
+   #pulseaudio, #pulseaudio.bluetoothed, #pulseaudio.source-muted, #pulseaudio.muted {
        /* Fix moving mute button */
        border-radius: 10px;
        transition: all 0.3s ease;
