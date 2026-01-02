@@ -24,7 +24,7 @@ in {
   };
 
   programs.niri.settings = {
-    # optain monitor id via `niri msg outputs`
+    # optain monitor id via `niri msg outputs`d
 
     spawn-at-startup = [
       {command = ["${pkgs.swayosd}/bin/swosd-server"];}
