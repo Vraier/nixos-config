@@ -96,7 +96,7 @@
        border: none;
    }
 
-   #cpu, #memory, #disk, #bluetooth, #idle_inhibitor, #pulseaudio {
+   #cpu, #memory, #disk, #bluetooth, #idle_inhibitor, #pulseaudio, #network {
        border-radius: 10px;
        transition: all 0.3s ease;
    }
