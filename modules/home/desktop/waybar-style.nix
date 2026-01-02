@@ -106,7 +106,6 @@
         border-radius: 10px;
         transition: all 0.3s ease;
         min-width: 60px;
-        text-align: center;
    }
 
    #pulseaudio.bluetoothed {
