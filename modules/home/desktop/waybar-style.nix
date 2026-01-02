@@ -105,6 +105,7 @@
        /* Fix moving mute button */
        border-radius: 10px;
        transition: all 0.3s ease;
+       min-width: 70px;
    }
 
    #pulseaudio.bluetoothed {
