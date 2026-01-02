@@ -96,9 +96,17 @@
        border: none;
    }
 
-   #cpu, #memory, #disk, #bluetooth, #idle_inhibitor, #pulseaudio, #network {
+   #cpu, #memory, #disk, #bluetooth, #idle_inhibitor, #network {
        border-radius: 10px;
        transition: all 0.3s ease;
+   }
+
+   #pulseaudio {
+   /* Fix moving mute button */
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        min-width: 60px;
+        text-align: center;
    }
 
    #pulseaudio.bluetoothed {
