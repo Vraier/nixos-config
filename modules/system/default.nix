@@ -3,6 +3,7 @@
     ./desktop/wayland.nix
     ./stylix/stylix.nix
     ./basic/basic.nix
+    ./vpn/default.nix
     ./steam/steam.nix
     ./nixos/nixos.nix
   ];
