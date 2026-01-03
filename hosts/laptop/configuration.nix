@@ -42,6 +42,7 @@
     ];
   };
   networking.hostName = "jp-laptop";
+  services.power-profiles-daemon.enable = true;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
