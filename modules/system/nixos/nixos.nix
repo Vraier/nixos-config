@@ -31,11 +31,7 @@
   };
 
   # Keyboard / Locale
-  services.xserver.xkb = {
-    layout = "de";
-    variant = "us";
-    options = "ctrl:nocaps";
-  };
+
   console.useXkbConfig = true;
 
   time.timeZone = "Europe/Berlin";

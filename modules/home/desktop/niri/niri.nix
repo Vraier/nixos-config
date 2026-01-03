@@ -38,6 +38,19 @@ in {
     hotkey-overlay.hide-not-bound = true;
     hotkey-overlay.skip-at-startup = true;
 
+    input.keyboard.xkb = {
+      # We load the "de" layout definition twice
+      layout = "de,de";
+
+      # The magic happens here:
+      # 1. "us" applies to the first 'de' (Your default)
+      # 2. The empty space after the comma applies default options to the second 'de' (Pure German)
+      variant = "us,";
+
+      # Your preferred CapsLock behavior
+      options = "ctrl:nocaps";
+    };
+
     # Layout
     #gestures.hot-corners.enable = false;
     layout = {
