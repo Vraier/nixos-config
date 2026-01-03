@@ -17,5 +17,6 @@
     parted
     btrfs-progs
     nvd
+    wdisplays
   ];
 }
