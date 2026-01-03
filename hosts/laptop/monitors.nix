@@ -39,5 +39,23 @@
         }
       ];
     }
+
+    {
+      profile.name = "chen";
+      profile.outputs = [
+        {
+          criteria = "California Institute of Technology 0x1404 Unknown";
+          position = "2560,0";
+          mode = "1920x1080";
+          scale = 1.25;
+        }
+
+        {
+          criteria = "Lenovo Group Limited LEN P27u-10 0x4D33564C";
+          position = "0,0";
+          mode = "2560x1440";
+        }
+      ];
+    }
   ];
 }
