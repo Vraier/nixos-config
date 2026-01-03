@@ -45,7 +45,7 @@
       profile.outputs = [
         {
           criteria = "California Institute of Technology 0x1404 Unknown";
-          position = "2560,0";
+          position = "2560,400";
           mode = "1920x1080";
           scale = 1.25;
         }
