@@ -101,21 +101,17 @@ in {
       }
 
       {
-        matches = [{app-id = "org.pulseaudio.pavucontrol";}];
-        open-floating = true;
-        min-width = 1000;
-        min-height = 600;
-      }
-      {
-        matches = [{app-id = ".blueman-manager-wrapped";}];
-        open-floating = true;
-      }
+        matches = [
+          {app-id = "^(org.pulseaudio.pavucontrol)$";}
+          {app-id = "^(.blueman-manager-wrapped)$";}
+          {app-id = "^(nm-connection-editor)$";}
+          {app-id = "^(wdisplays)$";}
+          {title = "^(Picture-in-Picture)$";}
+        ];
 
-      {
-        matches = [{title = "^(Theme Switcher)$";}];
         open-floating = true;
-        max-height = 300;
-        max-width = 600;
+        default-column-width = {fixed = 800;};
+        default-window-height = {fixed = 600;};
       }
     ];
 
