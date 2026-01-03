@@ -83,6 +83,7 @@ in {
             orientation = "horizontal";
             modules = [
               "battery"
+              "power-profiles-deamon"
               "idle_inhibitor"
             ];
           };
@@ -168,6 +169,16 @@ in {
             ];
             max-length = 7;
             tooltip-format = "Battery: {capacity}%\nTime left: {timeTo}";
+          };
+          "power-profiles-deamon" = {
+            format = "<span color=\"#${iconColor}\">{icon}</span>";
+            format-icons = {
+              "default" = "";
+              "performance" = "";
+              "balanced" = "";
+              "power-saver" = "";
+            };
+            tooltip-format = "Power profile: {profile}\nDriver: {driver}";
           };
           "bluetooth" = {
             format = "󰂯";
