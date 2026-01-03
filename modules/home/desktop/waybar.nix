@@ -37,7 +37,7 @@ in {
             "group/hardware"
             "group/connectivity"
             "group/audio"
-            #"tray"
+            "tray"
             #"hyprland/window"
           ];
           modules-center = [

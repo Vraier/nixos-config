@@ -11,6 +11,7 @@
   nixpkgs.config.allowUnfree = true;
 
   # Services
+  hardware.enableRedistributableFirmware = true;
   networking.networkmanager.enable = true;
   services.printing.enable = true;
   hardware.bluetooth.enable = true;
