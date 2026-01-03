@@ -57,6 +57,10 @@
        border: none;
    }
 
+   # misc * {
+       padding: 0 2px;
+   }
+
    #workspaces {
        border: none;
        padding: 0;
