@@ -83,7 +83,7 @@ in {
             orientation = "horizontal";
             modules = [
               "battery"
-              "power-profiles-deamon"
+              "power-profiles-daemon"
               "idle_inhibitor"
             ];
           };
@@ -170,7 +170,7 @@ in {
             max-length = 7;
             tooltip-format = "Battery: {capacity}%\nTime left: {timeTo}";
           };
-          "power-profiles-deamon" = {
+          "power-profiles-daemon" = {
             format = "<span color=\"#${iconColor}\">{icon}</span>";
             format-icons = {
               "default" = "";
