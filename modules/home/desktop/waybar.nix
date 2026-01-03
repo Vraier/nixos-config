@@ -241,8 +241,8 @@ in {
           };
           "network" = {
             format-wifi = " {essid}";
-            format-ethernet = " ";
-            format-disconnected = " ";
+            format-ethernet = "";
+            format-disconnected = "";
             tooltip-format = "{ifname} via {gwaddr}";
             tooltip-format-wifi = "{ifname} {essid} ({signalStrength}%)";
             tooltip-format-ethernet = "{ifname} via {gwaddr}";
