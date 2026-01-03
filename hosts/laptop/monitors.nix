@@ -35,7 +35,7 @@
         {
           criteria = "eDP-1";
           position = "5120,400"; # 2560 + 2560 = 5120
-          scale = 1.25;
+          scale = 1.1;
         }
       ];
     }
@@ -47,7 +47,7 @@
           criteria = "California Institute of Technology 0x1404 Unknown";
           position = "2560,800";
           mode = "1920x1080";
-          scale = 1.25;
+          scale = 1.1;
         }
 
         {
