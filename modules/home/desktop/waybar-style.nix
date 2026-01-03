@@ -41,6 +41,7 @@
    #connectivity,
    #audio,
    #power,
+   #misc,
    #context {
        background-color: #${colors.base01};
        padding: 4px 4px;
@@ -49,7 +50,7 @@
        /* border: 2px solid #${colors.base02}; */
    }
 
-   #hardware *, #connectivity *, #audio *, #power *, #context * {
+   #hardware *, #connectivity *, #audio *, #power *, #context *, #misc * {
        background-color: transparent;
        margin: 0px;
        padding: 0 8px; /* padding between modules inside group */

@@ -37,7 +37,7 @@ in {
             "group/hardware"
             "group/connectivity"
             "group/audio"
-            "tray"
+            "group/misc"
             #"hyprland/window"
           ];
           modules-center = [
@@ -84,6 +84,13 @@ in {
             modules = [
               "battery"
               "idle_inhibitor"
+            ];
+          };
+
+          "group/misc" = {
+            orientation = "horizontal";
+            modules = [
+              "tray"
             ];
           };
 
